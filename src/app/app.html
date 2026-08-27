@@ -22,8 +22,7 @@
 
                 <div class="user-section">
                     <div class="user-info">
-                        <samp class="user-name">Dr. Usuario</samp>
-                        <samp class="user-role">Medico Especialista</samp>
+                        <samp class="user-name">Usuario</samp>
                     </div>
 
                     <img src="usuario.png" alt="Usuario" class="user-image">
@@ -32,9 +31,163 @@
             </div>
 
         </nav>
-        <nav>
-            <h1 class="bg-amber-500">Angular</h1>
-        </nav>
+        <section class="hero">
+            <div class="hero-content">
+                <div class="asma-logo">
+                    <img src="logo.png" alt="RespiraFacil">
+                </div>
+
+                <h1>
+                    Hola, Rodrigo
+                </h1>
+
+                <p>
+                    Completa el formulario para determinar el nivel de tu crisis
+                </p>
+
+                <p>
+                    asmática
+                </p>
+
+            </div>
+        </section>
+
+        <main class="evaluation-container">
+            <section class="evaluation-card">
+                <div class="question-title">
+                    <span class="question-icon">
+                        ▣
+                    </span>
+                    <h2>
+                        1. Indice de mesa corporal
+                    </h2>
+                </div>
+
+                <div class="imc-inputs">
+                    <div class="input-container">
+                        <span class="input-icon">
+                            ⚖
+                        </span>
+
+                        <input
+                            type="number"
+                            placeholder="Peso (Kg)"
+                        >
+                    </div>
+
+                    <div class="input-container">
+                        <span class="input-icon">
+                            ↕
+                        </span>
+
+                        <input
+                            type="number"
+                            placeholder="Altura (cm)"
+                        >
+                    </div>
+                </div>
+
+                <div class="calculate-container">
+                    <button class="calculate-button">
+                        Calcular
+                    </button>
+                </div>
+
+                <div class="result">
+                    Resultado: --
+                </div>
+            </section>
+
+            <section class="evaluation-card question-card">
+                <div class="question-title">
+                    <samp class="question-icon">
+                        ≋
+                    </samp>
+                    <h2>
+                        2. ¿Tienes dificultad para respirar?
+                    </h2>
+                </div>
+
+                <div class="answer-buttons">
+                    <button>
+                        Sí
+                    </button>
+                    <button>
+                        No
+                    </button>
+                </div>
+            </section>
+
+            <section class="evaluation-card question-card">
+                <div class="question-title">
+                    <samp class="question-icon">
+                        ≋
+                    </samp>
+                    <h2>
+                        3. ¿Tienes tos?
+                    </h2>
+                </div>
+
+                <div class="answer-buttons">
+                    <button>
+                        Sí
+                    </button>
+                    <button>
+                        No
+                    </button>
+                </div>
+            </section>
+
+            <section class="evaluation-card question-card">
+                <div class="question-title">
+                    <samp class="question-icon">
+                        ♧
+                    </samp>
+                    <h2>
+                        4. ¿Le silba el pecho?
+                    </h2>
+                </div>
+
+                <div class="answer-buttons">
+                    <button>
+                        Sí
+                    </button>
+                    <button>
+                        No
+                    </button>
+                </div>
+            </section>
+
+            <section class="evaluation-card question-card">
+                <div class="question-title">
+                    <samp class="question-icon">
+                        ♡
+                    </samp>
+                    <h2>
+                        5. ¿Siente opresion en el pecho?
+                    </h2>
+                </div>
+
+                <div class="answer-buttons">
+                    <button>
+                        Sí
+                    </button>
+                    <button>
+                        No
+                    </button>
+                </div>
+            </section>
+
+            <button class="submit-button">
+                <span>
+                    Enviar Evaluación
+                </span>
+
+                <samp class="arrow">
+                    ▷
+                </samp>
+            </button>
+        </main>
     </nav>
 </body>
 </html>
