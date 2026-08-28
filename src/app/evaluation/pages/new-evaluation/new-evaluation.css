@@ -47,6 +47,7 @@
     font-size: 38px;
     line-height: 45px;
     font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .hero p {
@@ -54,6 +55,7 @@
     color: #202124;
     font-size: 15px;
     line-height: 22px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* PREGUTNAS DE LA EVALUACIÓN*/
@@ -99,6 +101,7 @@
     font-size: 19px;
     line-height: 23px;
     font-weight: 700;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* INPUTS IMC */

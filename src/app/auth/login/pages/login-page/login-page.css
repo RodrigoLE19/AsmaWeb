@@ -1,0 +1,253 @@
+/* PAGINA LOGIN */
+.login-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 40px 20px;
+    background:
+        radial-gradient(
+            circle at 10% 30%,
+            rgba(219, 229, 255, 0.65),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(220, 229, 255, 0.65)
+            transparent 30%
+        ),
+        #f8f9ff;
+}
+
+/*TARJETA*/
+.login-card{
+    width: 100%;
+    max-width: 473px;
+    box-sizing: border-box;
+    padding: 66px 51px 48px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(31, 51, 80, 0.08);
+}
+
+/* LOGO */
+.logo-container{
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 3px 12px rgba(40, 60, 90, 0.06);
+}
+
+.login-logo{
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+/*CABECERA*/
+.login-header{
+    text-align: center;
+    margin-bottom: 52px;
+}
+
+.login-header h1{
+    margin: 0;
+    color: #111d2e;
+    font-size: 34px;
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-header p {
+    margin: 9px 0 0;
+    color: #363c47;
+    font-size: 17px;
+    line-height: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* FORMULARIO */
+.login-form{
+    width: 100%;
+}
+
+/*GRUPO DEL INPUT*/
+.form-group{
+    margin-bottom: 26px;
+}
+
+/* LABEL */
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: black;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* LABEL CONTRASEÑA */
+.password-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.password-label label {
+    margin-bottom: 0;
+}
+
+/*OLVIDASTE CONTRASEÑA*/
+.forget-password {
+    color: #00347f;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.forget-password:hover {
+    text-decoration: underline;
+}
+
+/*CONTENEDOR INPUT */
+.input-container{
+    width: 100%;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 14px;
+    border: 1px solid #bfc5d0;
+    border-radius: 8px;
+    background: #f9f9fd;
+    transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* cuando se selecciona */
+
+.input-container:focus-within {
+    border-color: #0b4fa5;
+    box-shadow: 0 0 0 3px rgba(11, 79, 165, 0.08);
+}
+
+/*ICONO INPUT*/
+.input-icon {
+    width: 22px;
+    margin-right: 11px;
+    color: #9ba1ad;
+    font-size: 18px;
+    text-align: center;
+}
+
+/* INPUT */
+
+.input-container input {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+}
+
+.input-container input::placeholder{
+    color: #aeb2bd;
+}
+
+/*MOSTRAR CONTRASEÑA*/
+.show-password{
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #9ca1ac;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.show-password:hover{
+    color: #3b4658;
+}
+
+/*BOTON LOGIN*/
+.login-button{
+    width: 100%;
+    height: 53px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 37px;
+    border: none;
+    border-radius: 7px;
+    background: #064b9f;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(6, 75, 159, 0.20);
+    transition: 
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.login-button:hover {
+    background: #053f86;
+}
+
+.login-button:active{
+    transform: translateY(1px);
+}
+
+
+/* FLECHA */
+.arrow{
+    font-size: 22px;
+    line-height: 1;
+}
+
+/*SEPRADOR*/
+.separator{
+    width: 100%;
+    height: 1px;
+    margin: 51px 0 28px;
+    background: #d9dee7;
+}
+
+/*REGISTRO*/
+.register-text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    color: #303640;
+    font-size: 15px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.register-text a{
+    color: #002e78;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.register-text a:hover{
+    text-decoration: underline;
+}
