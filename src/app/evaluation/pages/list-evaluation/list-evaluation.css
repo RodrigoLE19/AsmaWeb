@@ -1,0 +1,392 @@
+/* CUERPO GENERAL */
+.evaluaciones-page{
+    min-width: calc(100vh - 52px);
+    background: #f7f9fe;
+    color: #152235;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.evaluaciones-container {
+    width: 100%;
+    max-width: 1070px;
+    margin: 0 auto;
+    padding: 77px 20px 80px;
+    box-sizing: border-box;
+}
+
+/* INTRO */
+
+.page-intro {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 30px;
+    margin-bottom: 54px;
+}
+
+/* ETIQUETA */
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 15px;
+}
+
+.section-label span {
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: #173f68;
+}
+
+.section-label p {
+    margin: 0;
+    color: #173f68;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* TITULO */
+.intro-content h1 {
+    margin: 0;
+    color: #132235;
+    font-size: 49px;
+    letter-spacing: -1.5px;
+}
+
+/*DESCRIPCION*/
+.intro-description {
+    max-width: 650px;
+    margin: 17px 0 0;
+    color: #4d535d;
+    font-size: 17px;
+    line-height: 20px;
+}
+
+/* BTON NUEVA EVALUACION*/
+.new-evaluation-button {
+    height: 45px;
+    min-width: 198px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    border: none;
+    border-radius: 25px;
+    background: #0750a5;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(7, 80, 165, 0.22);
+    transition: 
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+.new-evaluation-button:hover {
+    background: #06458e;
+}
+
+.new-evaluation-button:active {
+    transform: translateY(1px);
+}
+
+.plus-icon {
+    font-size: 22px;
+    font-weight: 300;
+    line-height: 1;
+}
+
+/*SECCION REGISTROS*/
+.records-section {
+    width: 100%;
+}
+
+/*CABECERA DE REGISTROS*/
+.records-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+}
+
+.records-header h2 {
+    margin: 0;
+    color: #172638;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/*BUSCADOR*/
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.search-box {
+    width: 270px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    box-sizing: border-box;
+    border-radius: 22px;
+    background: #f1f5fc;
+    border: 1px solid #edf1f8;
+}
+
+.search-icon {
+    margin-right: 10px;
+    color: #303b4c;
+    font-size: 22px;
+    line-height: 1;
+}
+
+.search-box input {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #253346;
+    font-size: 14px;
+}
+
+.search-box input::placeholder {
+    color: #374151;
+}
+
+/* filtro */
+
+.filter-button {
+    width: 40px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    background: #f1f5fc;
+    color: #26384d;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.filter-button:hover {
+    background: #e8eef8;
+}
+
+/* TABLA */
+
+.table-container {
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(40, 65, 100, 0.04);
+    border: 1px solid #f0f2f7;
+}
+
+.records-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+/*CABECERA DE LA TABLA */
+
+.records-table thead {
+    background: #f5f7fc;
+}
+
+.records-table th {
+    height: 57px;
+    padding: 0 23px;
+    text-align: left;
+    color: #4b5563;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+/* PRIMERO CABECERA */
+.records-table th:first-child {
+    width: 15%;
+}
+
+.records-table th:nth-child(2) {
+    width: 21%;
+}
+
+.records-table th:nth-child(3) {
+    width: 20%;
+}
+
+.records-table th:nth-child(4) {
+    width: 31%;
+}
+
+.records-table th:last-child {
+    width: 13%;
+}
+
+/* ID / PACIENTE */
+.records-table th:first-child span {
+    display: block;
+}
+
+/* FILAS */
+
+.records-table tbody tr {
+    height: 91px;
+    border-bottom: 1px solid #f4f5f8;
+}
+
+.records-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.records-table td {
+    padding: 0 23px;
+    color: #253040;
+    font-size: 14px;
+}
+
+.records-table tbody tr:hover {
+    background: #fafbfe;
+}
+
+/* FECHA */
+.date {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.date span {
+    font-size: 14px;
+}
+
+.date small {
+    color: #303947;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/*ETIQUETA DE RIESGO*/
+.risk {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border-radius: 14px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.risk-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* RIESGO ALTO */
+.risk-high {
+    background: #fbd7d7;
+    color: #a12626;
+}
+
+.risk-high .risk-dot {
+    background: #c52b2b;
+}
+
+/* RIESGO BAJO */
+.risk-low {
+    background: #cfe5df;
+    color: #17614f;
+}
+
+.risk-low .risk-dot {
+    background: #14715b;
+}
+
+/*ACCIONES*/
+.actions-header {
+    text-align: right !important;
+}
+
+.actions-cell {
+    text-align: right;
+}
+
+.detail-button {
+    border: none;
+    background: #e7edf8;
+    color: #315783;
+    border-radius: 18px;
+    padding: 6px 13px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.detail-button:hover {
+    background: #dbe5f4;
+}
+
+.detail-button span {
+    margin-right: 4px;
+}
+
+/* PAGINACION */
+
+.pagination {
+    height: 55px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 13px;
+    box-sizing: border-box;
+    border-top: 1px solid #f1f3f7;
+}
+
+/* INFORMACION*/
+.pagination-info {
+    color: #555d68;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.pagination-info strong {
+    font-weight: 700;
+}
+
+/*CONTROLES*/
+.pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.pagination-arrow {
+    width: 25px;
+    height: 25px;
+    border: none;
+    background: transparent;
+    color: #747b85;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.pagination-arrow:hover {
+    color: #1d3f68;
+}
+
+.current-page {
+    color: #182638;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+

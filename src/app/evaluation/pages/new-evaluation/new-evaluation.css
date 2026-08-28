@@ -1,0 +1,245 @@
+
+
+
+.hero {
+    height: 289px;
+    background: 
+    linear-gradient(
+        135deg,
+        #edf3ff 0%,
+        #f1f5ff 50%,
+        #e4edfc 100%
+    );
+
+    border-bottom: 1px solid #dfe5f0;
+}
+
+.hero-content {
+    max-width: 850px;
+    margin: 0 auto;
+    padding-top: 38px;
+    text-align: center;
+}
+
+.asma-logo {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.04);
+}
+
+.asma-logo IMG {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+}
+
+/* TITULO */
+
+.hero h1 {
+    margin: 19px 0 0;
+    color: #0b408e;
+    font-size: 38px;
+    line-height: 45px;
+    font-weight: 700;
+}
+
+.hero p {
+    margin: 2px 0 0;
+    color: #202124;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+/* PREGUTNAS DE LA EVALUACIÓN*/
+
+.evaluation-container {
+    width: 100%;
+    max-width: 495px;
+    margin: -38px auto 0;
+    padding: 0 16px 63px;
+    box-sizing: border-box;
+}
+
+/* ESTILOS DE TARJETAS */
+
+.evaluation-card {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #edf0f5;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    padding: 38px;
+    margin-bottom: 19px;
+    box-sizing: border-box;
+}
+
+/* TITULO DE PREGUTNAS */
+
+.question-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.question-icon {
+    color: #052d72;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.question-title h2 {
+    margin: 0;
+    font-size: 19px;
+    line-height: 23px;
+    font-weight: 700;
+}
+
+/* INPUTS IMC */
+
+.imc-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 13px;
+}
+
+.input-container {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #4b5563;
+    font-size: 15px;
+    pointer-events: none;
+}
+
+.input-container input {
+    width: 100%;
+    height: 35px;
+    box-sizing: border-box;
+    padding: 0 16px 0 36px;
+    border: 1px solid #d7deeb;
+    background: #f0f3fb;
+    color: #222;
+    font-size: 13px;
+    outline: none;
+}
+
+.input-container input::placeholder {
+    color: #9ca3af;
+}
+
+.input-container input:focus {
+    border-color: #0b4da2;
+    box-shadow: 0 0 0 2px rgba(11, 77, 162, 0.12);
+}
+
+/* BOTON CALCULAR */
+
+.calculate-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 13px;
+}
+
+.calculate-button {
+    width: 176px;
+    height: 33px;
+    border: none;
+    border-radius: 20px;
+    background: #06479c;
+    color: #ffffff;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.calculate-button:hover {
+    background: #053d86;
+}
+
+/* RESULTADO */
+
+.result {
+    height: 40px;
+    margin-top: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    border: 1px dashed #d3dbe9;
+    border-radius: 6px;
+    background: #f1f4fc;
+    color: #333;
+    font-size: 13px;
+}
+
+/* BOTONES SI / NO */
+
+.answer-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 19px;
+}
+
+.answer-buttons button {
+    height: 40px;
+    border: 1px solid #d8dce4;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #222;
+    font-size: 13px;
+    cursor: pointer;
+    transition: 
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.answer-buttons button:hover {
+    background: #f2f5fb;
+}
+
+/* BOTN DE ENVIAR */
+
+.submit-button {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    border: none;
+    border-radius: 12px;
+    background: #06479c;
+    color: #ffffff;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.18);
+    box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.18);
+}
+
+.submit-button:hover {
+    background: #053d86;
+}
+
+.answer-button:active {
+    transform: translateY(1px);
+}
+
+.arrow {
+    font-size: 17px;
+}
