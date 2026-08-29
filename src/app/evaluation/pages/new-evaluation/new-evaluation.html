@@ -23,7 +23,7 @@
         <main class="evaluation-container">
             <form 
                 [formGroup]="evaluationForm" 
-                [ngSubmit]="enviarEvaluacion()"
+                (ngSubmit)="enviarEvaluacion()"
             >
                 <section class="evaluation-card">
                     <div class="question-title">
@@ -143,9 +143,9 @@
                             Sí
                         </button>
                         <button 
-                        type="button" 
-                        [class.selected]="evaluationForm.get('silbidoPecho')?.value === false"
-                        (click)="seleccionarRespuesta('silvidoPecho', false)">
+                            type="button" 
+                            [class.selected]="evaluationForm.get('silbidoPecho')?.value === false"
+                            (click)="seleccionarRespuesta('silbidoPecho', false)">
                             No
                         </button>
                     </div>

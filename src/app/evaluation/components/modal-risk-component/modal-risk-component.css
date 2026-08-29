@@ -1,0 +1,59 @@
+.modal_risk {
+    width: 300px;
+    background-color: #ffffff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+}
+
+.resultado-header {
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #007a53;
+    color: #39d6a0;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.modal_risk_body {
+    padding: 23px 15px 20px;
+    text-align: center;
+}
+
+.resultado-body h2 {
+    margin: 0 0 7px;
+    color: #071d2b;
+    font-size: 18px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.resultado-body p {
+    margin: 0;
+    color: #68717a;
+    font-size: 12px;
+    line-height: 1.45;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.risk_button {
+    width: 160px;
+    height: 30px;
+    margin-top: 26px;
+    border: none;
+    border-radius: 15px;
+    background-color: #006b4a;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.risk_button:hover {
+    background-color: #00583d;
+}

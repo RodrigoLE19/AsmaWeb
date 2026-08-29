@@ -1,10 +1,15 @@
 import { Component } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormsModule} from '@angular/forms';
+import { EvaluationService } from '../../services/evaluation-service';
+import { firstValueFrom } from 'rxjs';
+import { ServiceModal } from '../../shared/services/service-modal';
+import { ModalRiskComponent } from '../../components/modal-risk-component/modal-risk-component';
+
 
 
 @Component({
   selector: 'app-new-evaluation',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule],
   templateUrl: './new-evaluation.html',
   styleUrl: './new-evaluation.css',
 })
@@ -13,7 +18,7 @@ export class NewEvaluation {
   evaluationForm: FormGroup;
   imc: number | null = null;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,  public evaluacionService: EvaluationService, public serviceModal: ServiceModal) {
     this.evaluationForm = this.fb.group({
       peso: [
         '',
@@ -63,7 +68,7 @@ export class NewEvaluation {
     this.evaluationForm.get(campo)?.setValue(respuesta);
   }
 
-  enviarEvaluacion(): void {
+  async enviarEvaluacion() {
     if(this.evaluationForm.invalid) {
       return;
     }
@@ -71,20 +76,27 @@ export class NewEvaluation {
     if(this.imc === null) {
       return;
     }
+    const datosEvaluacion = {
+      questionIMC: this.imc,
+      questionWheezing: this.evaluationForm.value.silbidoPecho,
+      questionShortnessOfBreath: this.evaluationForm.value.dificultadRespirar,
+      questionChestTightness: this.evaluationForm.value.opresionPecho,
+      questionCoughing: this.evaluationForm.value.tos
+    };
+    try{
+      console.log(datosEvaluacion);
+    const respuesta = await firstValueFrom(this.evaluacionService.evaluar(datosEvaluacion)) 
+    console.log(respuesta)
+
+    this.serviceModal.openModal(ModalRiskComponent, respuesta)
+
+    } catch (error)
+     {
+      console.log(error)
+
+    }
 
     
-
-    const datosEvaluacion = {
-      peso: this.evaluationForm.value.peso,
-      altura: this.evaluationForm.value.altura,
-      imc: this.imc,
-      dificultadRespirar: this.evaluationForm.value.dificultadRespirar,
-      tos: this.evaluationForm.value.tos,
-      silbidoPecho: this.evaluationForm.value.silbidoPecho,
-      opresionPecho: this.evaluationForm.value.opresionPecho
-    };
-
-    console.log(datosEvaluacion);
   }
 
 }

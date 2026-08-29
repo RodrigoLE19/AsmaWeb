@@ -1,0 +1,28 @@
+<div class="modal_risk">
+    <div 
+        [class.low_risk]="";
+    >
+        RESULTADO
+    </div>
+
+    <div class="modal_risk_body">
+        <h2>
+            Baja Probabilidad
+        </h2>
+        <p>
+            Su evaluación indica una baja <br>
+            probabilidad de crisis asmática.
+        </p>
+
+        <p class="body__message">
+            {{ getMessageRisk() }}
+        </p>
+
+        <button 
+            class="risk_button" 
+            (click)="modalService.closeModal(null)"
+        >
+            Aceptar
+        </button>
+    </div>
+</div>
