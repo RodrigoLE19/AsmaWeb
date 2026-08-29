@@ -21,143 +21,171 @@
         </section>
 
         <main class="evaluation-container">
-            <form [formGroup]="evaluationForm">
+            <form 
+                [formGroup]="evaluationForm" 
+                [ngSubmit]="enviarEvaluacion()"
+            >
                 <section class="evaluation-card">
-                <div class="question-title">
-                    <span class="question-icon">
-                        ▣
+                    <div class="question-title">
+                        <span class="question-icon">
+                            ▣
+                        </span>
+                        <h2>
+                            1. Indice de mesa corporal
+                        </h2>
+                    </div>
+
+                    <div class="imc-inputs">
+                        <div class="input-container">
+                            <span class="input-icon">
+                                ⚖
+                            </span>
+
+                            <input
+                                type="number"
+                                placeholder="Peso (Kg)"
+                                formControlName="peso"
+                            >
+                        </div>
+
+                        <div class="input-container">
+                            <span class="input-icon">
+                                ↕
+                            </span>
+
+                            <input
+                                type="number"
+                                placeholder="Altura (cm)"
+                                formControlName="altura"
+                            >
+                        </div>
+                    </div>
+
+                    <div class="calculate-container">
+                        <button type="button" class="calculate-button" (click)="calcularIMC()">
+                            Calcular
+                        </button>
+                    </div>
+
+                    <div class="result">
+                        Resultado: {{ imc }}
+                    </div>
+                </section>
+
+                <section class="evaluation-card question-card">
+                    <div class="question-title">
+                        <samp class="question-icon">
+                            ≋
+                        </samp>
+                        <h2>
+                            2. ¿Tienes dificultad para respirar?
+                        </h2>
+                    </div>
+
+                    <div class="answer-buttons">
+                        <button  
+                            type="button" 
+                            [class.selected]="evaluationForm.get('dificultadRespirar')?.value === true"
+                            (click)="seleccionarRespuesta('dificultadRespirar', true)">
+                            Sí
+                        </button>
+                        <button 
+                            type="button" 
+                            [class.selected]="evaluationForm.get('dificultadRespirar')?.value === false"
+                            (click)="seleccionarRespuesta('dificultadRespirar', false)">
+                            No
+                        </button>
+                    </div>
+                </section>
+
+                <section class="evaluation-card question-card">
+                    <div class="question-title">
+                        <samp class="question-icon">
+                            ≋
+                        </samp>
+                        <h2>
+                            3. ¿Tienes tos?
+                        </h2>
+                    </div>
+
+                    <div class="answer-buttons">
+                        <button 
+                            type="button" 
+                            [class.selected]="evaluationForm.get('tos')?.value === true" 
+                            (click)="seleccionarRespuesta('tos', true)"
+                        >
+                            Sí
+                        </button>
+                        <button 
+                            type="button" 
+                            [class.selected]="evaluationForm.get('tos')?.value === false" 
+                            (click)="seleccionarRespuesta('tos', false)">
+                            No
+                        </button>
+                    </div>
+                </section>
+
+                <section class="evaluation-card question-card">
+                    <div class="question-title">
+                        <samp class="question-icon">
+                            ♧
+                        </samp>
+                        <h2>
+                            4. ¿Le silba el pecho?
+                        </h2>
+                    </div>
+
+                    <div class="answer-buttons">
+                        <button 
+                            type="button" 
+                            [class.selected]="evaluationForm.get('silbidoPecho')?.value === true"
+                            (click)="seleccionarRespuesta('silbidoPecho', true)">
+                            Sí
+                        </button>
+                        <button 
+                        type="button" 
+                        [class.selected]="evaluationForm.get('silbidoPecho')?.value === false"
+                        (click)="seleccionarRespuesta('silvidoPecho', false)">
+                            No
+                        </button>
+                    </div>
+                </section>
+
+                <section class="evaluation-card question-card">
+                    <div class="question-title">
+                        <samp class="question-icon">
+                            ♡
+                        </samp>
+                        <h2>
+                            5. ¿Siente opresion en el pecho?
+                        </h2>
+                    </div>
+
+                    <div class="answer-buttons">
+                        <button 
+                            type="button" 
+                            [class.selected]="evaluationForm.get('opresionPecho')?.value === true"
+                            (click)="seleccionarRespuesta('opresionPecho', true)">
+                            Sí
+                        </button>
+                        <button 
+                            type="button" 
+                            [class.selected]="evaluationForm.get('opresionPecho')?.value === false"
+                            (click)="seleccionarRespuesta('opresionPecho', false)">
+                            No
+                        </button>
+                    </div>
+                </section>
+
+                <button class="submit-button">
+                    <span>
+                        Enviar Evaluación
                     </span>
-                    <h2>
-                        1. Indice de mesa corporal
-                    </h2>
-                </div>
 
-                <div class="imc-inputs">
-                    <div class="input-container">
-                        <span class="input-icon">
-                            ⚖
-                        </span>
-
-                        <input
-                            type="number"
-                            placeholder="Peso (Kg)"
-                            formControlName="peso"
-                        >
-                    </div>
-
-                    <div class="input-container">
-                        <span class="input-icon">
-                            ↕
-                        </span>
-
-                        <input
-                            type="number"
-                            placeholder="Altura (cm)"
-                            formControlName="altura"
-                        >
-                    </div>
-                </div>
-
-                <div class="calculate-container">
-                    <button type="button" class="calculate-button" (click)="calcularIMC()">
-                        Calcular
-                    </button>
-                </div>
-
-                <div class="result">
-                    Resultado: {{ imc }}
-                </div>
-            </section>
-                
+                    <samp class="arrow">
+                        ▷
+                    </samp>
+                </button>
             </form>
-            <section class="evaluation-card question-card">
-                <div class="question-title">
-                    <samp class="question-icon">
-                        ≋
-                    </samp>
-                    <h2>
-                        2. ¿Tienes dificultad para respirar?
-                    </h2>
-                </div>
-
-                <div class="answer-buttons">
-                    <button>
-                        Sí
-                    </button>
-                    <button>
-                        No
-                    </button>
-                </div>
-            </section>
-
-            <section class="evaluation-card question-card">
-                <div class="question-title">
-                    <samp class="question-icon">
-                        ≋
-                    </samp>
-                    <h2>
-                        3. ¿Tienes tos?
-                    </h2>
-                </div>
-
-                <div class="answer-buttons">
-                    <button>
-                        Sí
-                    </button>
-                    <button>
-                        No
-                    </button>
-                </div>
-            </section>
-
-            <section class="evaluation-card question-card">
-                <div class="question-title">
-                    <samp class="question-icon">
-                        ♧
-                    </samp>
-                    <h2>
-                        4. ¿Le silba el pecho?
-                    </h2>
-                </div>
-
-                <div class="answer-buttons">
-                    <button>
-                        Sí
-                    </button>
-                    <button>
-                        No
-                    </button>
-                </div>
-            </section>
-
-            <section class="evaluation-card question-card">
-                <div class="question-title">
-                    <samp class="question-icon">
-                        ♡
-                    </samp>
-                    <h2>
-                        5. ¿Siente opresion en el pecho?
-                    </h2>
-                </div>
-
-                <div class="answer-buttons">
-                    <button>
-                        Sí
-                    </button>
-                    <button>
-                        No
-                    </button>
-                </div>
-            </section>
-
-            <button class="submit-button">
-                <span>
-                    Enviar Evaluación
-                </span>
-
-                <samp class="arrow">
-                    ▷
-                </samp>
-            </button>
         </main>
     </nav>

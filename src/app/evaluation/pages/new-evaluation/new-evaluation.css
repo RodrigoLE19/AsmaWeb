@@ -210,6 +210,12 @@
     background: #f2f5fb;
 }
 
+.answer-buttons button.selected{
+    background-color: #4387B9;
+    color: white;
+    border-color: #4387B9;
+}
+
 /* BOTN DE ENVIAR */
 
 .submit-button {

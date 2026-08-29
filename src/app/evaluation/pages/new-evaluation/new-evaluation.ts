@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormBuilder} from '@angular/forms';
+import {ReactiveFormsModule, FormGroup, FormBuilder, Validators} from '@angular/forms';
+
 
 @Component({
   selector: 'app-new-evaluation',
@@ -14,12 +15,25 @@ export class NewEvaluation {
 
   constructor(private fb: FormBuilder) {
     this.evaluationForm = this.fb.group({
-      peso: [''],
-      altura: [''],
-      dificultadRespirar: [null],
-      tos: [null],
-      silbidoPecho: [null],
-      opresionPecho: [null]
+      peso: [
+        '',
+        [
+          Validators.required,
+          Validators.min(1)
+        ]
+        
+      ],
+      altura: [
+        '',
+        [
+          Validators.required,
+          Validators.min(1)
+        ]
+      ],
+      dificultadRespirar: [null, Validators.required],
+      tos: [null, Validators.required],
+      silbidoPecho: [null, Validators.required],
+      opresionPecho: [null, Validators.required]
     });
   }
 
@@ -42,6 +56,35 @@ export class NewEvaluation {
     );
   }
 
-  
+  seleccionarRespuesta(
+    campo: string,
+    respuesta: boolean
+  ): void {
+    this.evaluationForm.get(campo)?.setValue(respuesta);
+  }
+
+  enviarEvaluacion(): void {
+    if(this.evaluationForm.invalid) {
+      return;
+    }
+
+    if(this.imc === null) {
+      return;
+    }
+
+    
+
+    const datosEvaluacion = {
+      peso: this.evaluationForm.value.peso,
+      altura: this.evaluationForm.value.altura,
+      imc: this.imc,
+      dificultadRespirar: this.evaluationForm.value.dificultadRespirar,
+      tos: this.evaluationForm.value.tos,
+      silbidoPecho: this.evaluationForm.value.silbidoPecho,
+      opresionPecho: this.evaluationForm.value.opresionPecho
+    };
+
+    console.log(datosEvaluacion);
+  }
 
 }
