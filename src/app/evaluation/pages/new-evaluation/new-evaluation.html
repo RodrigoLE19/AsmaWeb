@@ -1,5 +1,4 @@
 <nav>
-        
         <section class="hero">
             <div class="hero-content">
                 <div class="asma-logo">
@@ -22,7 +21,8 @@
         </section>
 
         <main class="evaluation-container">
-            <section class="evaluation-card">
+            <form [formGroup]="evaluationForm">
+                <section class="evaluation-card">
                 <div class="question-title">
                     <span class="question-icon">
                         ▣
@@ -41,6 +41,7 @@
                         <input
                             type="number"
                             placeholder="Peso (Kg)"
+                            formControlName="peso"
                         >
                     </div>
 
@@ -52,21 +53,23 @@
                         <input
                             type="number"
                             placeholder="Altura (cm)"
+                            formControlName="altura"
                         >
                     </div>
                 </div>
 
                 <div class="calculate-container">
-                    <button class="calculate-button">
+                    <button type="button" class="calculate-button" (click)="calcularIMC()">
                         Calcular
                     </button>
                 </div>
 
                 <div class="result">
-                    Resultado: --
+                    Resultado: {{ imc }}
                 </div>
             </section>
-
+                
+            </form>
             <section class="evaluation-card question-card">
                 <div class="question-title">
                     <samp class="question-icon">
