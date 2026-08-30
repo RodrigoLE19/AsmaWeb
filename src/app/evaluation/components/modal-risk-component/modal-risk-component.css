@@ -6,7 +6,7 @@
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
 
-.resultado-header {
+.low_risk {
     height: 36px;
     display: flex;
     justify-content: center;
@@ -18,20 +18,33 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.high_risk {
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #7a0800;
+    color: #d64b39;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .modal_risk_body {
     padding: 23px 15px 20px;
     text-align: center;
 }
 
-.resultado-body h2 {
+.risk_title h2 {
     margin: 0 0 7px;
     color: #071d2b;
     font-size: 18px;
     font-weight: 600;
+    line-height: 1.45;
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.resultado-body p {
+.body__message p {
     margin: 0;
     color: #68717a;
     font-size: 12px;
@@ -39,7 +52,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.risk_button {
+.low_button_color {
     width: 160px;
     height: 30px;
     margin-top: 26px;
@@ -54,6 +67,25 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.risk_button:hover {
+.low_button_color:hover {
     background-color: #00583d;
+}
+
+.high_button_color {
+    width: 160px;
+    height: 30px;
+    margin-top: 26px;
+    border: none;
+    border-radius: 15px;
+    background-color: #6b0c00;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.high_button_color:hover {
+    background-color: #580007;
 }

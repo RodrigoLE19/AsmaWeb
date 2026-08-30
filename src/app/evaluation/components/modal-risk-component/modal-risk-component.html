@@ -1,26 +1,24 @@
 <div class="modal_risk">
     <div 
-        [class.low_risk]="";
+        [class.low_risk]="matDialog.data.AsthmaDiagnosis == '[0]'"
+        [class.high_risk]="matDialog.data.AsthmaDiagnosis == '[1]'"
     >
         RESULTADO
     </div>
 
     <div class="modal_risk_body">
-        <h2>
-            Baja Probabilidad
+        <h2 class="risk_title">
+            {{ getRiskTitle() }}
         </h2>
-        <p>
-            Su evaluación indica una baja <br>
-            probabilidad de crisis asmática.
-        </p>
-
+    
         <p class="body__message">
             {{ getMessageRisk() }}
         </p>
 
         <button 
-            class="risk_button" 
-            (click)="modalService.closeModal(null)"
+            [class.low_button_color]="matDialog.data.AsthmaDiagnosis == '[0]'";
+            [class.high_button_color]="matDialog.data.AsthmaDiagnosis == '[1]'";
+            (click)="modalService.closeModal(null, true)"
         >
             Aceptar
         </button>

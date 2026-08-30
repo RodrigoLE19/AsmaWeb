@@ -9,16 +9,24 @@ import { ServiceModal } from '../../shared/services/service-modal';
   styleUrl: './modal-risk-component.css',
 })
 export class ModalRiskComponent {
-  matDialog = inject(MAT_DIALOG_DATA)
+  matDialog = inject(MAT_DIALOG_DATA);
 
-  modalService = inject(ServiceModal)
+  modalService = inject(ServiceModal);
+
+  getRiskTitle(): string {
+    if(this.matDialog.data.AsthmaDiagnosis === '[0]') {
+      return 'Baja Probabilidad';
+    }
+
+    return 'Alta Probabilidad';
+  }
 
   getMessageRisk(): string{
     if (this.matDialog.data.AsthmaDiagnosis == "[0]") {
-      return "Mantén tu estilo de vida saludable y realiza controles periódicos"
+      return "Su evaluación indica una baja probabilidad de crisis asmatica."
     }
     
-    return "Consulta con un especialista para un examen completo"
+    return "Su evaluación indica una alta probabilidad de crisis asmatica."
   }
 
   constructor(){
