@@ -12,7 +12,7 @@
                     clínica
                 </p>
             </div>
-            <button class="new-evaluation-button">
+            <button class="new-evaluation-button" routerLink="/new-evaluation">
                 <span class="plus-icon">+</span>
                 <span>Nueva Evaluación</span>
             </button>
@@ -24,11 +24,14 @@
                 <div class="search-container">
                     <div class="search-box">
                         <span class="search-icon">⌕</span>
-                        <input type="text" placeholder="Buscar paciente o ID...">
+                        <input 
+                            type="text" 
+                            placeholder="Buscar por ID o Riesgo"
+                            (input)="
+                                textoBusqueda.set($any($event.target).value);
+                                paginaActual.set(1)"
+                        >
                     </div>
-                    <button class="filter-button">
-                        ☰
-                    </button>
                 </div>
             </div>
 
@@ -37,8 +40,7 @@
                     <thead>
                         <tr>
                             <th>
-                                <span>ID</span>
-                                <span>PACIENTE</span>
+                                ID
                             </th>
 
                             <th>
@@ -46,21 +48,76 @@
                             </th>
 
                             <th>
-                                EDAD / SEXO 
+                                TIEMPO DE PREDICCIÓN
                             </th>
 
                             <th>
                                 NIVEL DE RIESGO 
                             </th>
-
-                            <th class="actions-header">
-                                ACCIONES
-                            </th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        <tr>
+                        @if (isLoading()) {
+                            <tr>
+                                <td colspan="4" class="loading-cell">
+                                    Cargando evaluaciones...
+                                </td>
+                            </tr>
+                        } @else if (evaluaciones().length === 0) {
+                            <tr>
+                                <td colspan="4" class="empty-cell">
+                                    No tienes evalaciones registradas.
+                                </td>
+                            </tr>
+                        } @else if (evaluacionesFilstradas().length === 0) {
+                            <tr>
+                                <td colspan="4" class="empty-cell">
+                                    No se encontraron evaluaciones.
+                                </td>
+                            </tr>
+                            
+                        }@else {
+
+                            @for (
+                                evaluationDTO of evaluacionesPaginadas(); 
+                                track evaluationDTO.idEvaluacion
+                                ) {
+                                <tr>
+                                    <td>
+                                        {{ evaluationDTO.idEvaluacion}}
+                                    </td>
+
+                                    <td>
+                                        <div class="date">
+                                            <span>
+                                                {{ evaluationDTO.fecha}}
+                                            </span>
+
+                                            <small>
+                                                {{ evaluationDTO.hora }}
+                                            </small>
+                                        </div>
+                                    </td>
+
+                                    <td>
+                                        {{ evaluationDTO.tiempoPrediccion }}
+                                    </td>
+
+                                    <td>
+                                        <span
+                                            class="risk"
+                                            [class.risk-low]="evaluationDTO.resultado === 'Baja Probabilidad'"
+                                            [class.risk-high]="evaluationDTO.resultado === 'Alta Probabilidad'"
+                                        >
+                                            <span class="risk-dot"></span>
+                                            {{ evaluationDTO.resultado }}
+                                        </span>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        <!-- <tr>
                             <td>
                                 PAC-8492
                             </td>
@@ -115,33 +172,34 @@
                                     Riesgo Bajo
                                 </span>
                             </td>
-
-                            <td class="actions-cell">
-                                <button class="detail-button">
-                                    <span>◉</span>
-                                    Ver Detalle
-                                </button>
-                            </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
 
                 <div class="pagination">
                     <div class="pagination-info">
                         Mostrando
-                        <strong>1-5</strong>
+                        <strong>{{ evaluacionesPaginadas().length }}</strong>
                         de 
-                        <strong>142</strong>
-                        evaluaciones
+                        <strong>{{ evaluacionesFilstradas().length }}</strong>
+                        evaluaciones 
                     </div>
                     <div class="pagination-controls">
-                        <button class="pagination-arrow">
+                        <button
+                            class="pagination-arrow"
+                            (click)="paginaAnterior()"
+                            (disabled)="paginaActual() === 1"
+                        >
                             ‹
                         </button>
                         <span class="current-page">
-                            1
+                            {{ paginaActual() }}
                         </span>
-                        <button class="pagination-arrow">
+                        <button 
+                            class="pagination-arrow"
+                            (click)="paginaSiguiente()"
+                            (disabled)="paginaActual() === totalPaginas()"
+                        >
                             ›
                         </button>
                     </div>

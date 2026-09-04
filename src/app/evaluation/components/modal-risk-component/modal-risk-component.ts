@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ServiceModal } from '../../shared/services/service-modal';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-modal-risk-component',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './modal-risk-component.html',
   styleUrl: './modal-risk-component.css',
 })

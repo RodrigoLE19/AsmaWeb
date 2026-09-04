@@ -35,7 +35,7 @@
     text-align: center;
 }
 
-.risk_title h2 {
+.risk_title {
     margin: 0 0 7px;
     color: #071d2b;
     font-size: 18px;
@@ -44,7 +44,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.body__message p {
+.body__message {
     margin: 0;
     color: #68717a;
     font-size: 12px;

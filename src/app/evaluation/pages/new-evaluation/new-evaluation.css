@@ -234,15 +234,13 @@
     cursor: pointer;
     box-shadow:
     0 4px 8px rgba(0, 0, 0, 0.18);
-    box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.18);
 }
 
 .submit-button:hover {
     background: #053d86;
 }
 
-.answer-button:active {
+.submit-button:active {
     transform: translateY(1px);
 }
 

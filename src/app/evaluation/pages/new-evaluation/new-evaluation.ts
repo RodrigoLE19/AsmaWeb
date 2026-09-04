@@ -1,19 +1,24 @@
-import { Component } from '@angular/core';
-import {ReactiveFormsModule, FormGroup, FormBuilder, Validators, FormsModule} from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import {ReactiveFormsModule, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { EvaluationService } from '../../services/evaluation-service';
 import { firstValueFrom } from 'rxjs';
 import { ServiceModal } from '../../shared/services/service-modal';
 import { ModalRiskComponent } from '../../components/modal-risk-component/modal-risk-component';
 
-
-
 @Component({
   selector: 'app-new-evaluation',
-  imports: [ReactiveFormsModule, FormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './new-evaluation.html',
   styleUrl: './new-evaluation.css',
 })
 export class NewEvaluation {
+
+  public readonly isLoading = signal<boolean>(false)
+
+  evaluationService = inject(EvaluationService)
+
+  
+  
 
   evaluationForm: FormGroup;
   imc: number | null = null;
@@ -70,6 +75,7 @@ export class NewEvaluation {
 
   async enviarEvaluacion() {
     if(this.evaluationForm.invalid) {
+      this.evaluationForm.markAllAsTouched();
       return;
     }
 
@@ -84,11 +90,38 @@ export class NewEvaluation {
       questionCoughing: this.evaluationForm.value.tos
     };
     try{
-      console.log(datosEvaluacion);
-    const respuesta = await firstValueFrom(this.evaluacionService.evaluar(datosEvaluacion)) 
-    console.log(respuesta)
+      console.log('Datos enviados al modelo:', datosEvaluacion);
 
-    this.serviceModal.openModal(ModalRiskComponent, respuesta)
+      const respuesta = await firstValueFrom(
+        this.evaluacionService.evaluar(datosEvaluacion)
+      ); 
+
+      console.log('Respuesta del modelo:',respuesta);
+
+      const resultado =
+        respuesta.AsthmaDiagnosis === '[0]'
+          ? 'Baja Probabilidad'
+          : 'Alta Probabilidad';
+
+      const ahora = new Date();
+
+      const evaluacionGuardar = {
+        fecha: ahora.toISOString().split('T')[0],
+        hora: ahora.toTimeString().slice(0, 5),
+        tiempoPrediccion: `${respuesta.prediction_time_ms} ms`,
+        resultado: resultado,
+        usuario: 1
+      };
+
+      console.log('Evaluacion para guardar:', evaluacionGuardar);
+
+      const evaluacionGuardada = await firstValueFrom(
+        this.evaluacionService.guardarEvaluacion(evaluacionGuardar)
+      );
+
+      console.log('Evaluacion guardada:', evaluacionGuardada);
+
+      this.serviceModal.openModal(ModalRiskComponent, respuesta)
 
     } catch (error)
      {
