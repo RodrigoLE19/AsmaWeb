@@ -30,9 +30,15 @@ export class ListEvaluation {
   obtenerEvaluaciones(): void {
     this.isLoading.set(true);
 
-    //USUAREMOS TEMPLORALMENTE EL USUARIO 1
+    const usuarioGuardado = localStorage.getItem('usuario');
 
-    const idUsuario = 1;
+    if (!usuarioGuardado) {
+      this.isLoading.set(false);
+      return;
+    }
+
+    const usuario = JSON.parse(usuarioGuardado);
+    const idUsuario = usuario.idUsuario;
 
     this.evaluationService.obtenerEvaluaciones(idUsuario).subscribe({
       next: (respuesta) => {

@@ -11,7 +11,11 @@
             </p>
         </div>
 
-        <form class="login-form">
+        <form 
+            class="login-form"
+            [formGroup]="loginForm"
+            (ngSubmit)="iniciarSesion()"
+        >
             <div class="form-group">
                 <label for="email">
                     Correo
@@ -20,7 +24,12 @@
                     <samp class="input-icon">
                         ✉
                     </samp>
-                    <input id="email" type="email" placeholder="nombre@gmail.con">
+                    <input 
+                        id="email" 
+                        type="email" 
+                        formControlName="email"
+                        placeholder="nombre@gmail.con"
+                    >
                 </div>
             </div>
 
@@ -37,7 +46,12 @@
                     <span class="input-icon">
                         🔒
                     </span>
-                    <input id="password" type="password" placeholder="********">
+                    <input 
+                        id="password" 
+                        type="password" 
+                        formControlName="contrasena"
+                        placeholder="********"
+                    >
 
                     <button type="button" class="show-password" aria-label="Mostrar contraseña">
                         ◉
@@ -45,8 +59,20 @@
                 </div>
             </div>
 
-            <button type="submit" class="login-button">
-                <span>Iniciar Sesión</span>
+            
+            @if (mensajeError) {
+                <p class="login-error">
+                    {{ mensajeError }}
+                </p>
+            }
+            <button 
+                type="submit" 
+                class="login-button"
+                [disabled]="isLoading"
+            >
+                <span>
+                    {{ isLoading ? 'Ingresando...' : 'Iniciar Sesión' }}  
+                </span>
                 <span class="arrow">
                     →
                 </span>

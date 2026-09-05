@@ -10,11 +10,6 @@ export const routes: Routes = [
     },
 
     {
-        path: 'login-page',
-        component: LoginPage
-    },
-
-    {
         path: 'new-evaluation',
         component: NewEvaluation
     },

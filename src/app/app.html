@@ -1,25 +1,27 @@
-<nav class="navbar">
-            <div class="navbar-container">
-                <a href="#" class="logo">
-                    <img src="logo.png" alt="RespiraFacil">
-                    <samp>Respira Facil</samp>
-                </a>
+@if (mostrarNavbar()) {
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="RespiraFacil">
+                <samp>Respira Facil</samp>
+            </a>
 
-                <div class="nav-menu">
-                    <a routerLink="list-evaluation" routerLinkActive="active" class="nav-link">Evaluaciones</a>
-                    <a routerLink="new-evaluation" routerLinkActive="active" class="nav-link">Nueva Evalaucion</a>
-                    <a routerLinkActive="active" class="nav-link">Ayuda</a>
-                </div>
-
-                <div class="user-section">
-                    <div class="user-info">
-                        <samp class="user-name">Usuario</samp>
-                    </div>
-
-                    <img src="usuario.png" alt="Usuario" class="user-image">
-
-                </div>
+            <div class="nav-menu">
+                <a routerLink="list-evaluation" routerLinkActive="active" class="nav-link">Evaluaciones</a>
+                <a routerLink="new-evaluation" routerLinkActive="active" class="nav-link">Nueva Evalaucion</a>
+                <a routerLinkActive="active" class="nav-link">Ayuda</a>
             </div>
 
-        </nav>
+            <div class="user-section">
+                <div class="user-info">
+                        <samp class="user-name">Usuario</samp>
+                </div>
+                 <img src="usuario.png" alt="Usuario" class="user-image">
+            </div>
+         </div>
+
+    </nav>
+
+}
+
 <router-outlet />
