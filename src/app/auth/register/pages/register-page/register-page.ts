@@ -3,6 +3,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { firstValueFrom } from 'rxjs';
+import { ServiceModal } from '../../../../evaluation/shared/services/service-modal';
+import { ModalSuccess } from '../../../components/modal-success/modal-success';
+
 
 @Component({
   selector: 'app-register-page',
@@ -14,6 +17,7 @@ export class RegisterPage {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private modalService = inject(ServiceModal);
 
   registerForm = this.fb.group({
     nombre: ['', Validators.required],
@@ -62,7 +66,13 @@ export class RegisterPage {
         })
       );
 
-      await this.router.navigate(['/login']);
+      this.modalService.openModal(
+      ModalSuccess,
+      {
+        titulo: 'Cuenta creada correctamente',
+        mensaje: 'Tu cuenta ha sido registrada. Ya puedes inciair sesión'
+      }
+    );
 
     } catch (error: any) {
       if (error.status === 409) {
@@ -75,5 +85,7 @@ export class RegisterPage {
     } finally {
       this.isLoading = false;
     }
+
+    
   }
 }

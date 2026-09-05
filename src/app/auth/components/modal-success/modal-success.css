@@ -1,0 +1,51 @@
+.modal-success {
+    width: 360px;
+    max-width: 90vw;
+    box-sizing: border-box;
+    padding: 36px 32px;
+    text-align: center;
+    background: #ffffff;
+}
+
+.success-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e6f4ec;
+    color: #18794e;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.modal-success h2 {
+    margin: 0 0 12px;
+    color: #111d2e;
+    font-size: 24px;
+}
+
+.modal-success p {
+    margin: 0 0 28px;
+    color: #505763;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.modal-success button {
+    width: 100%;
+    height: 48px;
+    border: none;
+    border-radius: 8px;
+    background: #064b9f;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.modal-success button:hover {
+    background: #053f86;
+}

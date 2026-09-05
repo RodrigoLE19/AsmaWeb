@@ -229,6 +229,84 @@
     background: #d9dee7;
 }
 
+/* ALERTA */
+
+.login-alert {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 14px;
+    padding: 11px 13px;
+    border: 1px solid #f1b9b9;
+    border-radius: 8px;
+    background: #fff1f1;
+    color: #a52323;
+    font-size: 13px;
+}
+
+.alert-icon {
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #c73a3a;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+/* EXITO LOGIN */
+
+.success-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.18);
+    z-index: 1000;
+}
+
+.success-notification {
+    width: 320px;
+    padding: 32px 28px;
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 15px 40px rgba(31, 51, 80, 0.18);
+    text-align: center;
+}
+
+.success-check {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 17px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #def4e7;
+    color: #198754;
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.success-notification h3 {
+    margin: 0 0 8px;
+    color: #111d2e;
+    font-size: 21px;
+}
+
+.success-notification p {
+    margin: 0;
+    color: #606773;
+    font-size: 14px;
+}
+
 /*REGISTRO*/
 .register-text{
     display: flex;

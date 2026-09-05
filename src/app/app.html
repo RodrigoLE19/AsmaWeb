@@ -9,7 +9,7 @@
             <div class="nav-menu">
                 <a routerLink="list-evaluation" routerLinkActive="active" class="nav-link">Evaluaciones</a>
                 <a routerLink="new-evaluation" routerLinkActive="active" class="nav-link">Nueva Evalaucion</a>
-                <a routerLinkActive="active" class="nav-link">Ayuda</a>
+                <!--<a routerLinkActive="active" class="nav-link">Ayuda</a> -->
             </div>
 
             <div class="user-section">
@@ -23,7 +23,10 @@
                         Cerrar sesión
                     </button>
                 </div>
-                 <img src="usuario.png" alt="Usuario" class="user-image">
+                 <!--<img src="usuario.png" alt="Usuario" class="user-image"> -->
+                 <div class="user-avatar">
+                    {{ obtenerInicialUsuario() }}
+                 </div>
             </div>
          </div>
 

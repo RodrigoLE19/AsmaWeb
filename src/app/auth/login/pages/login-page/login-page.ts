@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
@@ -21,8 +21,15 @@ export class LoginPage {
     contrasena: ['', Validators.required]
   });
 
-  isLoading = false;
-  mensajeError = '';
+  isLoading = signal(false);
+  mensajeError = signal('');
+  mensajeExito = signal('');
+  nombreUsuario = '';
+  mostrarContrasena = signal(false);
+
+  toggleContrasena(): void {
+    this.mostrarContrasena.update(valor => !valor);
+  }
 
   async iniciarSesion(): Promise<void> {
     if (this.loginForm.invalid) {
@@ -30,8 +37,10 @@ export class LoginPage {
       return;
     }
 
-    this.isLoading = true;
-    this.mensajeError = '';
+    this.isLoading.set(true);
+    this.mensajeError.set('');
+    this.mensajeExito.set('');
+    
 
     try {
       const respuesta = await firstValueFrom(
@@ -48,17 +57,23 @@ export class LoginPage {
         JSON.stringify(respuesta)
       );
 
-      await this.router.navigate(['/list-evaluation']);
+      this.nombreUsuario = respuesta.nombre;
+      this.mensajeExito.set('Login exitoso');
+
+      setTimeout(async () => {
+        await this.router.navigate(['/list-evaluation']);
+      }, 1500);
 
     } catch (error: any) {
+
       if (error.status === 401) {
-        this.mensajeError = 'Correo o contraseña incorrectos.'
+        this.mensajeError.set('Correo o contraseña incorrectos.');
       } else {
-        this.mensajeError = 'No se pudo inciar sesión';
+        this.mensajeError.set('No se pudo inciar sesión');
       }
-      
     } finally {
-      this.isLoading = false;
+      this.isLoading.set(false);
+
     }
   }
 }

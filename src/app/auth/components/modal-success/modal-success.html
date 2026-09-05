@@ -1,0 +1,17 @@
+<div class="modal-success">
+    <div class="modal-icon">
+        ✓
+    </div>
+    <h2>
+        {{ titulo }}
+    </h2>
+    <p>
+        {{ mensaje }}
+    </p>
+    <button
+        type="button"
+        (click)="modalService.closeModal('/login')"
+    >
+        Iniciar sesión
+    </button>
+</div>

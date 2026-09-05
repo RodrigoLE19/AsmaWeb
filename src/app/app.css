@@ -98,9 +98,15 @@
     color: #555b68;
 }
 
-.user-image {
-    width: 30px;
-    height: 30px;
+.user-avatar {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 50%;
-    object-fit: cover;
+    background: #e6eef9;
+    color: #064b9f;
+    font-size: 15px;
+    font-weight: 700;
 }

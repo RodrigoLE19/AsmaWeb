@@ -33,6 +33,20 @@ export class App {
     return usuario.nombre;
   }
 
+  obtenerInicialUsuario(): string {
+    const usuarioGuardado = localStorage.getItem('usuario');
+
+    if (!usuarioGuardado) {
+      return 'U';
+    }
+
+    const usuario = JSON.parse(usuarioGuardado);
+
+    return usuario.nombre
+      ? usuario.nombre.charAt(0).toUpperCase()
+      : 'U';
+  }
+
   cerrarSesion(): void {
     localStorage.removeItem('usuario');
     this.router.navigate(['/login']);

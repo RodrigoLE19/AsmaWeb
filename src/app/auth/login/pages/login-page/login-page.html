@@ -48,30 +48,39 @@
                     </span>
                     <input 
                         id="password" 
-                        type="password" 
+                        [type]="mostrarContrasena() ? 'text' : 'password'"
                         formControlName="contrasena"
                         placeholder="********"
                     >
 
-                    <button type="button" class="show-password" aria-label="Mostrar contraseña">
-                        ◉
+                    <button 
+                        type="button" 
+                        class="show-password" 
+                        (click)="toggleContrasena()"
+                        aria-label="Mostrar contraseña"
+                    >
+                        {{ mostrarContrasena() ? '◉' : '◉' }} 
                     </button>
                 </div>
             </div>
 
             
-            @if (mensajeError) {
-                <p class="login-error">
-                    {{ mensajeError }}
-                </p>
+            @if (mensajeError()) {
+                <div class="login-alert">
+                    <span class="alert-icon">!</span>
+                    <span>
+                        {{ mensajeError() }}
+                    </span>
+                </div>
             }
+
             <button 
                 type="submit" 
                 class="login-button"
-                [disabled]="isLoading"
+                [disabled]="isLoading()"
             >
                 <span>
-                    {{ isLoading ? 'Ingresando...' : 'Iniciar Sesión' }}  
+                    {{ isLoading() ? 'Ingresando...' : 'Iniciar Sesión' }}  
                 </span>
                 <span class="arrow">
                     →
@@ -87,3 +96,22 @@
         </div>
     </div>
 </div>
+@if (mensajeExito()) {
+  <div class="success-overlay">
+    <div class="success-notification">
+
+      <div class="success-check">
+        ✓
+      </div>
+
+      <h3>
+        ¡Bienvenida, {{ nombreUsuario }}!
+      </h3>
+
+      <p>
+        Inicio de sesión exitoso
+      </p>
+
+    </div>
+  </div>
+}
