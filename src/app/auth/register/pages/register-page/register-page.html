@@ -1,1 +1,128 @@
-<p>register-page works!</p>
+<div class="register-page">
+    <div class="register-header">
+        <div class="register-logo">
+            <img src="logo.png" alt="Respira Facil">
+        </div>
+
+        <h1>Crear Cuenta</h1>
+
+        <p>
+            Únete a Respira Facil para tomar
+            <br>
+            el control de tu salud respiratoria
+        </p>
+    </div>
+
+    <div class="register-card">
+        <form
+            [formGroup]="registerForm"
+            (ngSubmit)="registrarUsuario()"
+        >
+            <div class="form-group">
+                <label for="nombre">
+                    Nombre
+                </label>
+
+                <div class="input-container">
+                    <span class="input-icon">
+                        👤
+                    </span>
+                    <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Jose">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="apellido">
+                    Apellido
+                </label>
+
+                <div class="input-container">
+                    <span class="input-icon">
+                        👤
+                    </span>
+                    <input id="apellido" type="text" formControlName="apellido" placeholder="Ej. Garcia">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">
+                    Correo
+                </label>
+
+                <div class="input-container">
+                    <span class="input-icon">
+                        ✉
+                    </span>
+                    <input id="email" type="email" formControlName="email" placeholder="jose@ejemplo.com">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="contrasena">
+                    Contraseña
+                </label>
+
+                <div class="input-container">
+                    <span class="input-icon">
+                        🔒
+                    </span>
+                    <input id="contrasena" type="password" formControlName="contrasena" placeholder="Mínimo 8 caracteres">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmarContrasena">
+                    Confirmar Contraseña
+                </label>
+
+                <div class="input-container">
+                    <span class="input-icon">
+                        ↻
+                    </span>
+                    <input id="confirmarContrasena" type="password" formControlName="confirmarContrasena" placeholder="Repite la contraseña">
+                </div>
+            </div>
+
+            <label class="terms">
+                <input type="checkbox" formControlName="terminos">
+                <span>
+                    Acepto los
+                    <a href="#">
+                        Términos del Servicio
+                    </a>
+                    y la 
+                    <a href="#">
+                        Política de Privacidad
+                    </a>. 
+                </span>
+            </label>
+
+            @if (mensajeError) {
+                <p class="register-error">
+                    {{ mensajeError }}
+                </p>
+            }
+
+            <button
+                type="submit"
+                class="register-button"
+                [disabled]="isLoading"
+            >
+                <span>
+                    {{ isLoading ? 'Registrnado...' : 'Registrarse' }}
+                </span>
+
+                <span class="arrow">→</span>
+
+            </button>
+
+        </form>
+    </div>
+
+    <div class="login-link">
+        <span>¿Ya tienes una cuenta?</span>
+        <a routerLink="/login">
+            Inicia Sesión 
+        </a>
+    </div>
+</div>

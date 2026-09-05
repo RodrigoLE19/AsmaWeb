@@ -9,12 +9,32 @@ import {ReactiveFormsModule} from '@angular/forms';
   styleUrl: './app.css'
 })
 export class App {
+
   protected readonly title = signal('proyect-angular');
+
   router = inject(Router);
 
   mostrarNavbar(): boolean {
     return ! (
       this.router.url.includes('/login') || 
       this.router.url.includes('/register'));
+  }
+
+  obtenerNombreUsuario(): string {
+    const usuarioGuardado = localStorage.getItem('usuario');
+
+    if (!usuarioGuardado) {
+      return 'usuario';
+      
+    }
+
+    const usuario = JSON.parse(usuarioGuardado);
+
+    return usuario.nombre;
+  }
+
+  cerrarSesion(): void {
+    localStorage.removeItem('usuario');
+    this.router.navigate(['/login']);
   }
 }

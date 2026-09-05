@@ -14,7 +14,14 @@
 
             <div class="user-section">
                 <div class="user-info">
-                        <samp class="user-name">Usuario</samp>
+                    <samp class="user-name"> {{ obtenerNombreUsuario() }} </samp>
+                    <button
+                        type="button"
+                        class="logout-button"
+                        (click)="cerrarSesion()"
+                    >
+                        Cerrar sesión
+                    </button>
                 </div>
                  <img src="usuario.png" alt="Usuario" class="user-image">
             </div>

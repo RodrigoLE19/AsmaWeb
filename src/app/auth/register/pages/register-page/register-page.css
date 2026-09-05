@@ -1,0 +1,264 @@
+.register-page  {
+    min-height: 100vh;
+    box-sizing: border-box;
+    padding: 24px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(219, 229, 255, 0.65),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 80%,
+            rgba(220, 229, 255, 0.55),
+            transparent 35%
+        ),
+        #f8f9ff;
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* CABECERA */
+
+.register-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.register-logo {
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px rgba(40, 60, 90, 0.08);
+}
+
+
+.register-logo img {
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.register-header h1 {
+    margin: 0;
+    color: #111d2e;
+    font-size: 44px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+}
+
+.register-header p {
+    margin: 14px 0 0;
+    color: #40444d;
+    font-size: 18px;
+    line-height: 27px;
+}
+
+/* TARJETA */
+
+.register-card {
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+    padding: 38px 27px 42px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(31, 51, 80, 0.13);
+    position: relative;
+}
+
+.register-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    border-radius: 12px 12px 0 0;
+    background: linear-gradient(
+            to right,
+            #064b9f,
+            #064b9f 50%,
+            #126a38
+        );
+}
+
+/* FORMULARIO */
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #20242d;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* INPUT */
+
+.input-container {
+    width: 100%;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 0 15px;
+    background: #f7f8fc;
+    border: 1px solid #d8dde7;
+    border-radius: 8px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.input-container:focus-within {
+    border-color: #0b4fa5;
+
+    box-shadow:
+        0 0 0 3px rgba(11, 79, 165, 0.08);
+}
+
+.input-icon {
+    width: 25px;
+    margin-right: 14px;
+    color: #a7adba;
+    font-size: 17px;
+    text-align: center;
+}
+
+.input-container input {
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #20242d;
+    font-size: 16px;
+}
+
+.input-container input::placeholder {
+    color: #9ba1ad;
+}
+
+/* TERMINOS */
+
+.terms {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 5px;
+    color: #333842;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.terms input {
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.terms a {
+    color: #00347f;
+    text-decoration: none;
+}
+
+.terms a:hover {
+    text-decoration: underline;
+}
+
+/* ERROR */
+
+.register-error {
+    margin: 18px 0 0;
+    color: #b42318;
+    font-size: 13px;
+    text-align: center;
+}
+
+
+/* BOTON */
+
+.register-button {
+    width: 100%;
+    height: 53px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 38px;
+    border: none;
+    border-radius: 28px;
+    background: #064b9f;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: 0 5px 12px rgba(6, 75, 159, 0.20);
+    transition: 
+        background 0.2s ease,
+        transform 0.1s ease;
+}
+
+.register-button:hover {
+    background: #053f86;
+}
+
+.register-button:active {
+    transform: translateY(1px);
+}
+
+.register-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.arrow {
+    font-size: 22px;
+    line-height: 1;
+}
+
+/* VOLVER A LOGIN */
+
+.login-link {
+    margin-top: 55px;
+    color: #252a32;
+    font-size: 15px;
+    text-align: center;
+}
+
+.login-link a {
+    margin-left: 4px;
+    color: #00347f;
+    font-weight: 500;
+    text-decoration: none;
+}
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 600px) {
+    .register-header h1 {
+        font-size: 36px;
+    }
+
+    .register-card {
+        padding: 32px 22px 36px;
+    }
+}

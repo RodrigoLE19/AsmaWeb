@@ -12,4 +12,13 @@ export class AuthService {
     login(datos: { email: string; contrasena: string }) {
         return this.http.post('http://localhost:8080/usuarios/auth', datos);
     }
+
+    registrar(datos: {
+        nombre: string; 
+        apellido: string; 
+        email: string; 
+        contrasena: string;
+    }) {
+        return this.http.post('http://localhost:8080/usuarios/registro', datos);
+    }
 }

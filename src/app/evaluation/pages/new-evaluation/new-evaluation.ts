@@ -17,9 +17,6 @@ export class NewEvaluation {
 
   evaluationService = inject(EvaluationService)
 
-  
-  
-
   evaluationForm: FormGroup;
   imc: number | null = null;
 
@@ -105,12 +102,21 @@ export class NewEvaluation {
 
       const ahora = new Date();
 
+      const usuarioGuardado = localStorage.getItem('usuario');
+
+      if (!usuarioGuardado) {
+        console.error('No hay usuario autenticado');
+        return; 
+      }
+
+      const usuario = JSON.parse(usuarioGuardado);
+      
       const evaluacionGuardar = {
         fecha: ahora.toISOString().split('T')[0],
         hora: ahora.toTimeString().slice(0, 5),
         tiempoPrediccion: `${respuesta.prediction_time_ms} ms`,
-        resultado: resultado,
-        usuario: 1
+        resultado,
+        usuario: usuario.idUsuario
       };
 
       console.log('Evaluacion para guardar:', evaluacionGuardar);
