@@ -17,7 +17,9 @@ export class App {
   mostrarNavbar(): boolean {
     return ! (
       this.router.url.includes('/login') || 
-      this.router.url.includes('/register'));
+      this.router.url.includes('/register') ||
+      this.router.url.includes('/forgot-password') ||
+      this.router.url.includes('/reset-password'));
   }
 
   obtenerNombreUsuario(): string {

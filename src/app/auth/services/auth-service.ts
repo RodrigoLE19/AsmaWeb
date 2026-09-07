@@ -22,4 +22,28 @@ export class AuthService {
     }) {
         return this.http.post('http://localhost:8080/usuarios/registro', datos);
     }
+
+    recuperarContrasena(email: string) {
+        return this.http.post(
+            'http://localhost:8080/usuarios/recuperar-contrasena', 
+            { email }, 
+            { responseType: 'text'}
+        );
+    }
+
+    restablecerContrasena(token: string, nuevaContrasena: string) {
+        return this.http.patch(
+            'http://localhost:8080/usuarios/restablecer-contrasena', 
+            {
+                token,
+                nuevaContrasena
+            },
+            {
+                responseType: 'text'
+            }
+            
+        );
+    }
+
+    
 }
