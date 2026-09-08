@@ -6,7 +6,7 @@
                 </div>
 
                 <h1>
-                    Hola, Rodrigo
+                    Hola, {{ nombreUsuario }}
                 </h1>
 
                 <p>
@@ -36,29 +36,53 @@
                     </div>
 
                     <div class="imc-inputs">
-                        <div class="input-container">
-                            <span class="input-icon">
-                                ⚖
-                            </span>
+                        <div class="imc-field">
+                            <div class="input-container">
+                                <span class="input-icon">
+                                    ⚖
+                                </span>
 
-                            <input
-                                type="number"
-                                placeholder="Peso (Kg)"
-                                formControlName="peso"
-                            >
+                                <input
+                                    type="number"
+                                    placeholder="Peso (Kg)"
+                                    formControlName="peso"
+                                >
+                                
+                            </div>
+                            @if (
+                                    evaluationForm.get('peso')?.touched &&
+                                    evaluationForm.get('peso')?.invalid
+                                ) {
+                                    <span class="field-error">
+                                        Ingresa un peso válido entra 20 y 300 Kg 
+                                    </span>
+                                }
                         </div>
+                        
 
-                        <div class="input-container">
-                            <span class="input-icon">
-                                ↕
-                            </span>
+                        <div class="imc-field">
+                            <div class="input-container">
+                                <span class="input-icon">
+                                    ↕
+                                </span>
 
-                            <input
-                                type="number"
-                                placeholder="Altura (cm)"
-                                formControlName="altura"
-                            >
+                                <input
+                                    type="number"
+                                    placeholder="Altura (cm)"
+                                    formControlName="altura"
+                                >
+                            </div>
+                            @if (
+                                    evaluationForm.get('altura')?.touched &&
+                                    evaluationForm.get('altura')?.invalid
+                                ) {
+                                    <span class="field-error">
+                                        Ingresa una altura válido entra 80 y 250 cm  
+                                    </span>
+                                }
+
                         </div>
+                        
                     </div>
 
                     <div class="calculate-container">
@@ -96,6 +120,14 @@
                             No
                         </button>
                     </div>
+                    @if (
+                            evaluationForm.get('dificultadRespirar')?.touched &&
+                            evaluationForm.get('dificultadRespirar')?.invalid
+                        ) {
+                            <span class="field-error">
+                                Selecciona una respuesta 
+                            </span>
+                        }
                 </section>
 
                 <section class="evaluation-card question-card">
@@ -122,7 +154,16 @@
                             (click)="seleccionarRespuesta('tos', false)">
                             No
                         </button>
+                        
                     </div>
+                    @if (
+                            evaluationForm.get('tos')?.touched &&
+                            evaluationForm.get('tos')?.invalid
+                        ) {
+                            <span class="field-error">
+                                Selecciona una respuesta 
+                            </span>
+                        }
                 </section>
 
                 <section class="evaluation-card question-card">
@@ -148,7 +189,16 @@
                             (click)="seleccionarRespuesta('silbidoPecho', false)">
                             No
                         </button>
+                        
                     </div>
+                    @if (
+                            evaluationForm.get('silbidoPecho')?.touched &&
+                            evaluationForm.get('silbidoPecho')?.invalid
+                        ) {
+                            <span class="field-error">
+                                Selecciona una respuesta 
+                            </span>
+                        }
                 </section>
 
                 <section class="evaluation-card question-card">
@@ -174,10 +224,35 @@
                             (click)="seleccionarRespuesta('opresionPecho', false)">
                             No
                         </button>
+                        
                     </div>
+                    @if (
+                            evaluationForm.get('opresionPecho')?.touched &&
+                            evaluationForm.get('opresionPecho')?.invalid
+                        ) {
+                            <span class="field-error">
+                                Selecciona una respuesta 
+                            </span>
+                        }
                 </section>
 
-                <button class="submit-button">
+                @if (mensajeError()) {
+                    <div class="evaluation-error">
+                        {{ mensajeError() }}
+                    </div>
+                }
+
+                <button 
+                    type="submit"
+                    class="submit-button"
+                    [disabled]="isLoading()"
+                >
+                @if (isLoading()) {
+                    <span class="loader"></span>
+                    <span>
+                        Procesando evaluación... 
+                    </span>
+                } @else {
                     <span>
                         Enviar Evaluación
                     </span>
@@ -185,6 +260,9 @@
                     <samp class="arrow">
                         ▷
                     </samp>
+
+                }
+                    
                 </button>
             </form>
         </main>

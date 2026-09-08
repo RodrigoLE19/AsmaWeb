@@ -4,6 +4,7 @@ import { EvaluationService } from '../../services/evaluation-service';
 import { firstValueFrom } from 'rxjs';
 import { ServiceModal } from '../../shared/services/service-modal';
 import { ModalRiskComponent } from '../../components/modal-risk-component/modal-risk-component';
+import { ModalEvaluationInfo } from '../../components/modal-evaluation-info/modal-evaluation-info';
 
 @Component({
   selector: 'app-new-evaluation',
@@ -14,6 +15,9 @@ import { ModalRiskComponent } from '../../components/modal-risk-component/modal-
 export class NewEvaluation {
 
   public readonly isLoading = signal<boolean>(false)
+  public  readonly mensajeError = signal<string>('');
+
+  nombreUsuario: string = '';
 
   evaluationService = inject(EvaluationService)
 
@@ -26,7 +30,8 @@ export class NewEvaluation {
         '',
         [
           Validators.required,
-          Validators.min(1)
+          Validators.min(20),
+          Validators.max(300)
         ]
         
       ],
@@ -34,7 +39,8 @@ export class NewEvaluation {
         '',
         [
           Validators.required,
-          Validators.min(1)
+          Validators.min(80),
+          Validators.max(250)
         ]
       ],
       dificultadRespirar: [null, Validators.required],
@@ -44,23 +50,41 @@ export class NewEvaluation {
     });
   }
 
+  ngOnInit(): void {
+    const usuarioGuardado = localStorage.getItem('usuario');
+
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+      this.nombreUsuario = usuario.nombre;
+    }
+    this.serviceModal.openModal(ModalEvaluationInfo);
+  }
+
   mostrarDatos(): void {
     console.log(this.evaluationForm.value);
   }
 
   calcularIMC(): void {
-    const peso = this.evaluationForm.get('peso')?.value;
-    const alturaCm = this.evaluationForm.get('altura')?.value;
+    const pesoC0ntrol = this.evaluationForm.get('peso');
+    const alturaControl = this.evaluationForm.get('altura');
 
-    if (!peso || !alturaCm) {
+    pesoC0ntrol?.markAllAsTouched();
+    alturaControl?.markAllAsTouched();
+
+    if (pesoC0ntrol?.invalid || alturaControl?.invalid) {
+      this.imc = null;
       return;
     }
+
+    const peso = pesoC0ntrol?.value;
+    const alturaCm = alturaControl?.value;
 
     const alturaMetros = alturaCm / 100;
 
     this.imc = Number(
       (peso / (alturaMetros * alturaMetros)).toFixed(2)
     );
+    this.mensajeError.set('');
   }
 
   seleccionarRespuesta(
@@ -71,14 +95,26 @@ export class NewEvaluation {
   }
 
   async enviarEvaluacion() {
+
+    if (this.isLoading()) {
+      return;
+    }
+
+    this.mensajeError.set('');
+
     if(this.evaluationForm.invalid) {
       this.evaluationForm.markAllAsTouched();
+      this.mensajeError.set('Complete correctamente todas las preguntas');
       return;
     }
 
     if(this.imc === null) {
+      this.mensajeError.set('Debes calcular el IMC antes de enviar la evaluación');
       return;
     }
+
+    this.isLoading.set(true);
+
     const datosEvaluacion = {
       questionIMC: this.imc,
       questionWheezing: this.evaluationForm.value.silbidoPecho,
@@ -131,11 +167,10 @@ export class NewEvaluation {
 
     } catch (error)
      {
-      console.log(error)
-
-    }
-
-    
+      console.error('Error al procesar la evaluación', error);
+      this.mensajeError.set('No se pudo procesar la evaluación. Inteéntalo nuevamente');
+    } finally {
+      this.isLoading.set(false);
+    }    
   }
-
 }
