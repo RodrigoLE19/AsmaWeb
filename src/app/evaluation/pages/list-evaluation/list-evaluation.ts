@@ -42,19 +42,17 @@ export class ListEvaluation {
 
     this.evaluationService.obtenerEvaluaciones(idUsuario).subscribe({
       next: (respuesta) => {
-        console.log('Evaluaciones recibidas:', respuesta);
         this.evaluaciones.set(respuesta);
         this.isLoading.set(false);
       },
 
-      error: (error) => {
-        console.error('Error al obtener las evaluaciones', error);
+      error: () => {
         this.isLoading.set(false);
       }
     });
   }
 
-  evaluacionesFilstradas(): EvaluationDTO[] {
+  evaluacionesFiltradas(): EvaluationDTO[] {
     const texto = this.textoBusqueda().toLowerCase().trim();
 
     if (!texto) {
@@ -72,11 +70,11 @@ export class ListEvaluation {
     const inicio = (this.paginaActual() - 1) * this.evaluacionesPorPagina;
     const fin = inicio + this.evaluacionesPorPagina;
 
-    return this.evaluacionesFilstradas().slice(inicio, fin);
+    return this.evaluacionesFiltradas().slice(inicio, fin);
   }
 
   totalPaginas(): number {
-    return Math.ceil(this.evaluacionesFilstradas().length / this.evaluacionesPorPagina);
+    return Math.ceil(this.evaluacionesFiltradas().length / this.evaluacionesPorPagina);
   }
 
   paginaAnterior(): void {

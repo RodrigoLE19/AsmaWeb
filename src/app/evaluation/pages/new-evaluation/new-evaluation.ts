@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {ReactiveFormsModule, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { EvaluationService } from '../../services/evaluation-service';
 import { firstValueFrom } from 'rxjs';
@@ -19,12 +19,13 @@ export class NewEvaluation {
 
   nombreUsuario: string = '';
 
-  evaluationService = inject(EvaluationService)
-
   evaluationForm: FormGroup;
   imc: number | null = null;
 
-  constructor(private fb: FormBuilder,  public evaluacionService: EvaluationService, public serviceModal: ServiceModal) {
+  constructor(
+    private fb: FormBuilder,  
+    public evaluacionService: EvaluationService, 
+    public serviceModal: ServiceModal) {
     this.evaluationForm = this.fb.group({
       peso: [
         '',
@@ -58,10 +59,6 @@ export class NewEvaluation {
       this.nombreUsuario = usuario.nombre;
     }
     this.serviceModal.openModal(ModalEvaluationInfo);
-  }
-
-  mostrarDatos(): void {
-    console.log(this.evaluationForm.value);
   }
 
   calcularIMC(): void {
@@ -115,6 +112,16 @@ export class NewEvaluation {
 
     this.isLoading.set(true);
 
+    const usuarioGuardado = localStorage.getItem('usuario');
+
+      if (!usuarioGuardado) {
+        console.error('No se encontro una sesión activa. Inicia sesión nuevamente. ');
+        this.isLoading.set(false);
+        return; 
+      }
+
+      const usuario = JSON.parse(usuarioGuardado);
+
     const datosEvaluacion = {
       questionIMC: this.imc,
       questionWheezing: this.evaluationForm.value.silbidoPecho,
@@ -123,13 +130,10 @@ export class NewEvaluation {
       questionCoughing: this.evaluationForm.value.tos
     };
     try{
-      console.log('Datos enviados al modelo:', datosEvaluacion);
-
+      
       const respuesta = await firstValueFrom(
         this.evaluacionService.evaluar(datosEvaluacion)
       ); 
-
-      console.log('Respuesta del modelo:',respuesta);
 
       const resultado =
         respuesta.AsthmaDiagnosis === '[0]'
@@ -138,15 +142,6 @@ export class NewEvaluation {
 
       const ahora = new Date();
 
-      const usuarioGuardado = localStorage.getItem('usuario');
-
-      if (!usuarioGuardado) {
-        console.error('No hay usuario autenticado');
-        return; 
-      }
-
-      const usuario = JSON.parse(usuarioGuardado);
-      
       const evaluacionGuardar = {
         fecha: ahora.toISOString().split('T')[0],
         hora: ahora.toTimeString().slice(0, 5),
@@ -155,20 +150,16 @@ export class NewEvaluation {
         usuario: usuario.idUsuario
       };
 
-      console.log('Evaluacion para guardar:', evaluacionGuardar);
-
-      const evaluacionGuardada = await firstValueFrom(
+      await firstValueFrom(
         this.evaluacionService.guardarEvaluacion(evaluacionGuardar)
       );
-
-      console.log('Evaluacion guardada:', evaluacionGuardada);
 
       this.serviceModal.openModal(ModalRiskComponent, respuesta)
 
     } catch (error)
      {
       console.error('Error al procesar la evaluación', error);
-      this.mensajeError.set('No se pudo procesar la evaluación. Inteéntalo nuevamente');
+      this.mensajeError.set('No se pudo procesar la evaluación. Inténtalo nuevamente');
     } finally {
       this.isLoading.set(false);
     }    

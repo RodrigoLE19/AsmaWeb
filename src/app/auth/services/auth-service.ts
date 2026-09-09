@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { UsuarioResponse } from "../interfaces/usuario-response";
-
+import { environment } from "../../environments/environment";
 
 
 @Injectable({
@@ -11,7 +11,7 @@ export class AuthService {
     private http = inject(HttpClient)
 
     login(datos: { email: string; contrasena: string }) {
-        return this.http.post<UsuarioResponse>('http://localhost:8080/usuarios/auth', datos);
+        return this.http.post<UsuarioResponse>(`${environment.apiUrl}/usuarios/auth`, datos);
     }
 
     registrar(datos: {
@@ -20,12 +20,12 @@ export class AuthService {
         email: string; 
         contrasena: string;
     }) {
-        return this.http.post('http://localhost:8080/usuarios/registro', datos);
+        return this.http.post(`${environment.apiUrl}/usuarios/registro`, datos);
     }
 
     recuperarContrasena(email: string) {
         return this.http.post(
-            'http://localhost:8080/usuarios/recuperar-contrasena', 
+            `${environment.apiUrl}/usuarios/recuperar-contrasena`, 
             { email }, 
             { responseType: 'text'}
         );
@@ -33,7 +33,7 @@ export class AuthService {
 
     restablecerContrasena(token: string, nuevaContrasena: string) {
         return this.http.patch(
-            'http://localhost:8080/usuarios/restablecer-contrasena', 
+            `${environment.apiUrl}/usuarios/restablecer-contrasena`, 
             {
                 token,
                 nuevaContrasena
