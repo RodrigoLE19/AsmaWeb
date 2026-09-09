@@ -3,9 +3,9 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { firstValueFrom } from 'rxjs';
-import { ServiceModal } from '../../../../evaluation/shared/services/service-modal';
-import { ModalSuccess } from '../../../components/modal-success/modal-success';
 
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-page',
@@ -17,8 +17,7 @@ export class RegisterPage {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
-  private modalService = inject(ServiceModal);
-
+  
   registerForm = this.fb.group({
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
@@ -35,11 +34,16 @@ export class RegisterPage {
   });
 
   isLoading = false;
-  mensajeError = '';
 
   async registrarUsuario(): Promise<void> {
+
     if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched();
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos no válidos',
+        text: 'Por favor ingresa datos válidos.',
+        confirmButtonText: 'Aceptar'
+      });
       return;
     }
 
@@ -47,14 +51,17 @@ export class RegisterPage {
     const confirmarContrasena = this.registerForm.value.confirmarContrasena!;
 
     if (contrasena !== confirmarContrasena) {
-      this.mensajeError = 'Las contraseñan no coinciden';
+      Swal.fire({
+        icon: 'warning',
+        title: 'Las contraseñas no coinciden',
+        text: 'Verifica que ambos contraseñas sean iguales.',
+        confirmButtonText: 'Aceptar'
+      });
       return;
       
     }
 
     this.isLoading = true;
-    this.mensajeError = '';
-
 
     try {
       await firstValueFrom(
@@ -66,20 +73,33 @@ export class RegisterPage {
         })
       );
 
-      this.modalService.openModal(
-      ModalSuccess,
-      {
-        titulo: 'Cuenta creada correctamente',
-        mensaje: 'Tu cuenta ha sido registrada. Ya puedes inciair sesión'
-      }
-    );
+      Swal.fire({
+          icon: 'success',
+          title: 'Cuenta creada correctamente',
+          text: 'Tu cuenta ha sido registrada. Ya puedes iniciar sesión.',
+          confirmButtonText: 'Iniciar sesión'
+      });
+
+      this.router.navigate(['/login']);
 
     } catch (error: any) {
+      console.log('Error al registrar: ', error);
+
       if (error.status === 409) {
-        this.mensajeError = 'El correo ya esta registrado';
+        Swal.fire({
+          icon: 'warning',
+          title: 'Correo ya registrado',
+          text: 'Este correo ya está en uso. Ingrese otro correo.',
+          confirmButtonText: 'Aceptar'
+      });
         
       } else {
-        this.mensajeError = 'No se pudo crear la cuenta';
+        Swal.fire({
+          icon: 'warning',
+          title: 'Error al registrar',
+          text: 'No se pudo crear la cuenta. Intentelo nuevamente.',
+          confirmButtonText: 'Aceptar'
+      });
       }
       
     } finally {

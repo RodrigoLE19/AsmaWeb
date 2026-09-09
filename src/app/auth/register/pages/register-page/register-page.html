@@ -27,7 +27,12 @@
                     <span class="input-icon">
                         👤
                     </span>
-                    <input id="nombre" type="text" formControlName="nombre" placeholder="Ej. Jose">
+                    <input 
+                        id="nombre" 
+                        type="text" 
+                        formControlName="nombre" 
+                        placeholder="Ej. Jose">
+                    
                 </div>
             </div>
 
@@ -40,7 +45,12 @@
                     <span class="input-icon">
                         👤
                     </span>
-                    <input id="apellido" type="text" formControlName="apellido" placeholder="Ej. Garcia">
+                    <input 
+                        id="apellido" 
+                        type="text" 
+                        formControlName="apellido" 
+                        placeholder="Ej. Garcia">
+                   
                 </div>
             </div>
 
@@ -53,7 +63,12 @@
                     <span class="input-icon">
                         ✉
                     </span>
-                    <input id="email" type="email" formControlName="email" placeholder="jose@ejemplo.com">
+                    <input 
+                        id="email" 
+                        type="email" 
+                        formControlName="email" 
+                        placeholder="jose@ejemplo.com">
+                    
                 </div>
             </div>
 
@@ -66,7 +81,11 @@
                     <span class="input-icon">
                         🔒
                     </span>
-                    <input id="contrasena" type="password" formControlName="contrasena" placeholder="Mínimo 8 caracteres">
+                    <input 
+                        id="contrasena" 
+                        type="password" 
+                        formControlName="contrasena" 
+                        placeholder="Mínimo 8 caracteres">
                 </div>
             </div>
 
@@ -79,37 +98,39 @@
                     <span class="input-icon">
                         ↻
                     </span>
-                    <input id="confirmarContrasena" type="password" formControlName="confirmarContrasena" placeholder="Repite la contraseña">
+                    <input 
+                        id="confirmarContrasena" 
+                        type="password" 
+                        formControlName="confirmarContrasena" 
+                        placeholder="Repite la contraseña">
                 </div>
             </div>
 
-            <label class="terms">
-                <input type="checkbox" formControlName="terminos">
-                <span>
-                    Acepto los
-                    <a href="#">
-                        Términos del Servicio
-                    </a>
-                    y la 
-                    <a href="#">
-                        Política de Privacidad
-                    </a>. 
-                </span>
-            </label>
-
-            @if (mensajeError) {
-                <p class="register-error">
-                    {{ mensajeError }}
-                </p>
-            }
-
+            <div class="terms-container">
+                <label class="terms">
+                    <input 
+                        type="checkbox" 
+                        formControlName="terminos">
+                    <span>
+                        Acepto los
+                        <a href="#">
+                            Términos del Servicio
+                        </a>
+                        y la 
+                        <a href="#">
+                            Política de Privacidad
+                        </a>. 
+                    </span>
+                </label>
+            </div>
+        
             <button
                 type="submit"
                 class="register-button"
                 [disabled]="isLoading"
             >
                 <span>
-                    {{ isLoading ? 'Registrnado...' : 'Registrarse' }}
+                    {{ isLoading ? 'Registrando...' : 'Registrarse' }}
                 </span>
 
                 <span class="arrow">→</span>

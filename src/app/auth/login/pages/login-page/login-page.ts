@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../../services/auth-service';
 import { firstValueFrom } from 'rxjs';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -22,9 +23,6 @@ export class LoginPage {
   });
 
   isLoading = signal(false);
-  mensajeError = signal('');
-  mensajeExito = signal('');
-  nombreUsuario = '';
   mostrarContrasena = signal(false);
 
   toggleContrasena(): void {
@@ -33,15 +31,17 @@ export class LoginPage {
 
   async iniciarSesion(): Promise<void> {
     if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos no válidos',
+        text: 'Por favor complete correctamente todos los campos.',
+        confirmButtonText: 'Aceptar'
+      });
       return;
     }
 
     this.isLoading.set(true);
-    this.mensajeError.set('');
-    this.mensajeExito.set('');
     
-
     try {
       const respuesta = await firstValueFrom(
         this.authService.login({
@@ -50,26 +50,36 @@ export class LoginPage {
         })
       );
 
-      console.log('Usuario autenticado:', respuesta);
-
       localStorage.setItem(
         'usuario',
         JSON.stringify(respuesta)
       );
 
-      this.nombreUsuario = respuesta.nombre;
-      this.mensajeExito.set('Login exitoso');
+      Swal.fire({
+        icon: 'success',
+        title: 'Inicio de sesión exitoso',
+        text: `Bienvenido/a, ${respuesta.nombre}.`,
+        confirmButtonText: 'Continuar'
+      });
 
-      setTimeout(async () => {
-        await this.router.navigate(['/list-evaluation']);
-      }, 1500);
+      await this.router.navigate(['/list-evaluation']);
 
     } catch (error: any) {
 
       if (error.status === 401) {
-        this.mensajeError.set('Correo o contraseña incorrectos.');
+        Swal.fire({
+          icon: 'warning',
+          title: 'Credenciales incorrectas',
+          text: 'El correo o la contraseña son incorrectos',
+          confirmButtonText: 'Aceptar'
+      });
       } else {
-        this.mensajeError.set('No se pudo inciar sesión');
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al iniciar sesión',
+          text: 'No se pudo iniciar sesión. Inténtalo nuevamente',
+          confirmButtonText: 'Aceptar'
+      });
       }
     } finally {
       this.isLoading.set(false);
