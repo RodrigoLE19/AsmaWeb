@@ -37,6 +37,30 @@ export class RegisterPage {
 
   async registrarUsuario(): Promise<void> {
 
+    const contrasena = this.registerForm.value.contrasena ?? '';
+    const confirmarContrasena = this.registerForm.value.confirmarContrasena ?? '';
+
+    if (contrasena.length < 8) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Contraseña no válida',
+        text: 'La contraseña debe tener al menos 8 caracteres.',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+    }
+
+    if (contrasena !== confirmarContrasena) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Las contraseñas no coinciden',
+        text: 'Verifica que ambas contraseñas sean iguales.',
+        confirmButtonText: 'Aceptar'
+      });
+      return;
+      
+    }
+
     if (this.registerForm.invalid) {
       Swal.fire({
         icon: 'warning',
@@ -45,20 +69,6 @@ export class RegisterPage {
         confirmButtonText: 'Aceptar'
       });
       return;
-    }
-
-    const contrasena = this.registerForm.value.contrasena!;
-    const confirmarContrasena = this.registerForm.value.confirmarContrasena!;
-
-    if (contrasena !== confirmarContrasena) {
-      Swal.fire({
-        icon: 'warning',
-        title: 'Las contraseñas no coinciden',
-        text: 'Verifica que ambos contraseñas sean iguales.',
-        confirmButtonText: 'Aceptar'
-      });
-      return;
-      
     }
 
     this.isLoading = true;
