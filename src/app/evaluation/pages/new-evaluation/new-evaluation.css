@@ -305,3 +305,82 @@
         transform: rotate(360deg);
     }
 }
+
+/* Formulario de evaluación para celulares */
+
+@media (max-width: 700px) {
+    .hero {
+        height: auto;
+        padding: 28px 16px 60px;
+    }
+
+    .hero-content {
+        padding-top: 0;
+    }
+
+    .hero h1 {
+        font-size: 30px;
+        line-height: 1.2;
+    }
+
+    .hero p {
+        margin-top: 12px;
+        font-size: 16px;
+        line-height: 1.5;
+    }
+
+    .evaluation-container {
+        padding-bottom: 40px;
+    }
+
+    .evaluation-card {
+        padding: 22px 18px;
+        margin-bottom: 16px;
+    }
+
+    .question-title {
+        align-items: flex-start;
+    }
+
+    .question-title h2 {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+
+    .imc-inputs {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .input-container input {
+        height: 46px;
+        font-size: 16px;
+    }
+
+    .answer-buttons {
+        gap: 12px;
+    }
+
+    .answer-buttons button {
+        min-height: 46px;
+        font-size: 16px;
+    }
+
+    .calculate-button {
+        min-height: 44px;
+        font-size: 15px;
+    }
+
+    .result {
+        height: auto;
+        min-height: 44px;
+        padding: 8px;
+        text-align: center;
+    }
+
+    .submit-button {
+        min-height: 56px;
+        height: auto;
+        padding: 16px 12px;
+        font-size: 17px;
+    }
+}

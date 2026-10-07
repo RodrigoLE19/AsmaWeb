@@ -1,7 +1,7 @@
 @if (mostrarNavbar()) {
     <nav class="navbar">
         <div class="navbar-container">
-            <a href="#" class="logo">
+            <a href="/list-evaluation" class="logo">
                 <img src="logo.png" alt="RespiraFacil">
                 <samp>Respira Facil</samp>
             </a>
@@ -23,7 +23,7 @@
                         Cerrar sesión
                     </button>
                 </div>
-                 <!--<img src="usuario.png" alt="Usuario" class="user-image"> -->
+                
                  <div class="user-avatar">
                     {{ obtenerInicialUsuario() }}
                  </div>
@@ -33,5 +33,4 @@
     </nav>
 
 }
-
 <router-outlet />

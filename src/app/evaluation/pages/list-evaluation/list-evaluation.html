@@ -1,154 +1,212 @@
 <main class="evaluaciones-page">
-    <div class="evaluaciones-container">
-        <section class="page-intro">
-            <div class="intro-content">
-                <div class="section-label">
-                    <span></span>
-                    <p>HISTORIAL CLÍNICO</p>
-                </div>
-                <H1>Evaluaciones Respiratorias</H1>
-                <p class="intro-description">
-                    Revisa el historial de evaluaciones de riesgo de asma para monitorear la evolución
-                    clínica
-                </p>
-            </div>
-            <button class="new-evaluation-button" routerLink="/new-evaluation">
-                <span class="plus-icon">+</span>
-                <span>Nueva Evaluación</span>
+  <div class="evaluaciones-container">
+    <section class="page-intro">
+      <div class="intro-content">
+        <div class="section-label">
+          <span></span>
+          <p>HISTORIAL CLÍNICO</p>
+        </div>
+
+        <h1>Evaluaciones Respiratorias</h1>
+
+        <p class="intro-description">
+          Revisa el historial de evaluaciones de riesgo de asma
+          para monitorear la evolución clínica.
+        </p>
+      </div>
+
+      <button
+        class="new-evaluation-button"
+        routerLink="/new-evaluation"
+      >
+        <span class="plus-icon">+</span>
+        <span>Nueva Evaluación</span>
+      </button>
+    </section>
+
+    <section class="records-section">
+      <div class="records-header">
+        <h2>Registros Recientes</h2>
+
+        <div class="search-container">
+          <div class="search-box">
+            <span class="search-icon" aria-hidden="true">⌕</span>
+
+            <input
+              type="text"
+              placeholder="Buscar por ID o Riesgo"
+              aria-label="Buscar evaluaciones por ID o riesgo"
+              (input)="
+                textoBusqueda.set($any($event.target).value);
+                paginaActual.set(1)
+              "
+            >
+          </div>
+        </div>
+      </div>
+
+      <div class="table-container">
+
+        <table class="records-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>FECHA Y HORA</th>
+              <th>TIEMPO DE PREDICCIÓN</th>
+              <th>NIVEL DE RIESGO</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            @if (isLoading()) {
+              <tr>
+                <td colspan="4" class="loading-cell">
+                  Cargando evaluaciones...
+                </td>
+              </tr>
+            } @else if (evaluaciones().length === 0) {
+              <tr>
+                <td colspan="4" class="empty-cell">
+                  No tienes evaluaciones registradas.
+                </td>
+              </tr>
+            } @else if (evaluacionesFiltradas().length === 0) {
+              <tr>
+                <td colspan="4" class="empty-cell">
+                  No se encontraron evaluaciones.
+                </td>
+              </tr>
+            } @else {
+              @for (
+                evaluacion of evaluacionesPaginadas();
+                track evaluacion.idEvaluacion
+              ) {
+                <tr>
+                  <td>{{ evaluacion.idEvaluacion }}</td>
+
+                  <td>
+                    <div class="date">
+                      <span>{{ evaluacion.fecha }}</span>
+                      <small>{{ evaluacion.hora }}</small>
+                    </div>
+                  </td>
+
+                  <td>{{ evaluacion.tiempoPrediccion }}</td>
+
+                  <td>
+                    <span
+                      class="risk"
+                      [class.risk-low]="
+                        evaluacion.resultado === 'Baja Probabilidad'
+                      "
+                      [class.risk-high]="
+                        evaluacion.resultado === 'Alta Probabilidad'
+                      "
+                    >
+                      <span class="risk-dot" aria-hidden="true"></span>
+                      {{ evaluacion.resultado }}
+                    </span>
+                  </td>
+                </tr>
+              }
+            }
+          </tbody>
+        </table>
+
+        <div
+          class="evaluation-cards"
+          aria-label="Historial de evaluaciones"
+        >
+          @if (isLoading()) {
+            <p class="card-state" role="status">
+              Cargando evaluaciones...
+            </p>
+          } @else if (evaluaciones().length === 0) {
+            <p class="card-state">
+              No tienes evaluaciones registradas.
+            </p>
+          } @else if (evaluacionesFiltradas().length === 0) {
+            <p class="card-state">
+              No se encontraron evaluaciones.
+            </p>
+          } @else {
+            @for (
+              evaluacion of evaluacionesPaginadas();
+              track evaluacion.idEvaluacion
+            ) {
+              <article class="evaluation-summary">
+                <h3>Evaluación #{{ evaluacion.idEvaluacion }}</h3>
+
+                <span
+                  class="risk"
+                  [class.risk-low]="
+                    evaluacion.resultado === 'Baja Probabilidad'
+                  "
+                  [class.risk-high]="
+                    evaluacion.resultado === 'Alta Probabilidad'
+                  "
+                >
+                  <span class="risk-dot" aria-hidden="true"></span>
+                  {{ evaluacion.resultado }}
+                </span>
+
+                <dl>
+                  <div>
+                    <dt>Fecha</dt>
+                    <dd>{{ evaluacion.fecha }}</dd>
+                  </div>
+
+                  <div>
+                    <dt>Hora</dt>
+                    <dd>{{ evaluacion.hora }}</dd>
+                  </div>
+
+                  <div class="prediction-detail">
+                    <dt>Tiempo de predicción</dt>
+                    <dd>{{ evaluacion.tiempoPrediccion }}</dd>
+                  </div>
+                </dl>
+              </article>
+            }
+          }
+        </div>
+
+        <div class="pagination">
+          <div class="pagination-info">
+            Mostrando
+            <strong>{{ evaluacionesPaginadas().length }}</strong>
+            de
+            <strong>{{ evaluacionesFiltradas().length }}</strong>
+            evaluaciones
+          </div>
+
+          <div class="pagination-controls">
+            <button
+              type="button"
+              class="pagination-arrow"
+              aria-label="Página anterior"
+              (click)="paginaAnterior()"
+              [disabled]="paginaActual() <= 1"
+            >
+              ‹
             </button>
-        </section>
 
-        <section class="records-section">
-            <div class="records-header">
-                <h2>Registros Recientes</h2>
-                <div class="search-container">
-                    <div class="search-box">
-                        <span class="search-icon">⌕</span>
-                        <input 
-                            type="text" 
-                            placeholder="Buscar por ID o Riesgo"
-                            (input)="
-                                textoBusqueda.set($any($event.target).value);
-                                paginaActual.set(1)"
-                        >
-                    </div>
-                </div>
-            </div>
+            <span class="current-page">
+              {{ paginaActual() }}
+            </span>
 
-            <div class="table-container">
-                <table class="records-table">
-                    <thead>
-                        <tr>
-                            <th>
-                                ID
-                            </th>
-
-                            <th>
-                                FECHA Y HORA
-                            </th>
-
-                            <th>
-                                TIEMPO DE PREDICCIÓN
-                            </th>
-
-                            <th>
-                                NIVEL DE RIESGO 
-                            </th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @if (isLoading()) {
-                            <tr>
-                                <td colspan="4" class="loading-cell">
-                                    Cargando evaluaciones...
-                                </td>
-                            </tr>
-                        } @else if (evaluaciones().length === 0) {
-                            <tr>
-                                <td colspan="4" class="empty-cell">
-                                    No tienes evaluaciones registradas.
-                                </td>
-                            </tr>
-                        } @else if (evaluacionesFiltradas().length === 0) {
-                            <tr>
-                                <td colspan="4" class="empty-cell">
-                                    No se encontraron evaluaciones.
-                                </td>
-                            </tr>
-                            
-                        }@else {
-
-                            @for (
-                                evaluationDTO of evaluacionesPaginadas(); 
-                                track evaluationDTO.idEvaluacion
-                                ) {
-                                <tr>
-                                    <td>
-                                        {{ evaluationDTO.idEvaluacion}}
-                                    </td>
-
-                                    <td>
-                                        <div class="date">
-                                            <span>
-                                                {{ evaluationDTO.fecha}}
-                                            </span>
-
-                                            <small>
-                                                {{ evaluationDTO.hora }}
-                                            </small>
-                                        </div>
-                                    </td>
-
-                                    <td>
-                                        {{ evaluationDTO.tiempoPrediccion }}
-                                    </td>
-
-                                    <td>
-                                        <span
-                                            class="risk"
-                                            [class.risk-low]="evaluationDTO.resultado === 'Baja Probabilidad'"
-                                            [class.risk-high]="evaluationDTO.resultado === 'Alta Probabilidad'"
-                                        >
-                                            <span class="risk-dot"></span>
-                                            {{ evaluationDTO.resultado }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-
-                <div class="pagination">
-                    <div class="pagination-info">
-                        Mostrando
-                        <strong>{{ evaluacionesPaginadas().length }}</strong>
-                        de 
-                        <strong>{{ evaluacionesFiltradas().length }}</strong>
-                        evaluaciones 
-                    </div>
-                    <div class="pagination-controls">
-                        <button
-                            class="pagination-arrow"
-                            (click)="paginaAnterior()"
-                            (disabled)="paginaActual() === 1"
-                        >
-                            ‹
-                        </button>
-                        <span class="current-page">
-                            {{ paginaActual() }}
-                        </span>
-                        <button 
-                            class="pagination-arrow"
-                            (click)="paginaSiguiente()"
-                            (disabled)="paginaActual() === totalPaginas()"
-                        >
-                            ›
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+            <button
+              type="button"
+              class="pagination-arrow"
+              aria-label="Página siguiente"
+              (click)="paginaSiguiente()"
+              [disabled]="paginaActual() >= totalPaginas()"
+            >
+              ›
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </main>
