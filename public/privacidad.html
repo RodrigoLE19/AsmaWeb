@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de privacidad | Respira Fácil</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #eef7f8;
+      color: #203c43;
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+    }
+    main {
+      max-width: 850px;
+      margin: 32px auto;
+      padding: 36px;
+      background: white;
+      border-radius: 18px;
+    }
+    h1, h2 { color: #073d47; line-height: 1.3; }
+    h1 { font-size: clamp(28px, 5vw, 38px); }
+    h2 { margin-top: 30px; font-size: 21px; }
+    a { color: #176a7a; overflow-wrap: anywhere; }
+    .fecha { color: #52676c; }
+    @media (max-width: 600px) {
+      main { margin: 12px; padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a href="/login">← Volver a Respira Fácil</a>
+    <h1>Política de privacidad</h1>
+    <p class="fecha">Última actualización: 7 de octubre de 2026</p>
+
+    <p>
+      Esta política explica cómo Respira Fácil trata los datos
+      utilizados para crear cuentas, realizar evaluaciones y
+      consultar su historial.
+    </p>
+
+    <h2>1. Responsable y contacto</h2>
+    <p>
+      El responsable de esta aplicación es Rodrigo Estrada.
+      Para consultas sobre privacidad o solicitudes relacionadas con
+      tus datos, escribe a
+      <a href="mailto:lar riestradaleon19@gmail.com"
+         id="contacto">Contacto de privacidad</a>.
+    </p>
+
+    <h2>2. Datos que utiliza la aplicación</h2>
+    <ul>
+      <li>
+        Datos de registro: nombre, apellido, correo electrónico
+        y contraseña para acceder a la cuenta.
+      </li>
+      <li>
+        Datos de evaluación: peso y altura para calcular el índice
+        de masa corporal (IMC), y respuestas sobre dificultad para
+        respirar, tos, silbidos y opresión en el pecho.
+      </li>
+      <li>
+        Historial: resultado, fecha y hora de las evaluaciones
+        asociadas a tu cuenta.
+      </li>
+    </ul>
+
+    <h2>3. Finalidad del tratamiento</h2>
+    <p>
+      Estos datos se utilizan para gestionar tu cuenta, procesar
+      las evaluaciones, mostrar sus resultados y conservar tu
+      historial. El correo electrónico también se utiliza para
+      gestionar solicitudes de recuperación de contraseña.
+    </p>
+    <p>
+      Las respuestas sobre síntomas y el IMC se envían al servicio
+      de evaluación para obtener el resultado.
+    </p>
+
+    <h2>4. Correos y uso de Gmail API</h2>
+    <p>
+      La integración con Gmail API está destinada al envío de
+      enlaces de recuperación de contraseña desde una cuenta
+      del administrador, autorizada por su titular.
+      El permiso solicitado es gmail.send.
+    </p>
+    <p>
+      Esta integración no solicita acceso al buzón de Gmail de
+      los usuarios de Respira Fácil ni permiso para leer sus
+      mensajes. Para enviar el correo de recuperación, Google
+      procesa la dirección del destinatario y el contenido
+      del mensaje, incluido el enlace de recuperación.
+    </p>
+
+    <h2>5. Servicios utilizados</h2>
+    <p>
+      La aplicación utiliza Netlify para alojar la interfaz,
+      Render para los servicios del backend y de evaluación,
+      y Neon para la base de datos. El envío de correos mediante
+      Gmail API utiliza los servicios de Google.
+      Estos proveedores procesan la información necesaria para
+      prestar sus respectivos servicios, y su infraestructura
+      puede encontrarse fuera de Perú.
+    </p>
+
+    <h2>6. Almacenamiento en el navegador</h2>
+    <p>
+      Respira Fácil utiliza almacenamiento local del navegador
+      para conservar información del usuario que inició sesión
+      y permitir la navegación dentro de la aplicación.
+    </p>
+
+    <h2>7. Conservación y solicitudes sobre tus datos</h2>
+    <p>
+      La cuenta y su historial se conservan para permitir el uso
+      de la aplicación. Puedes solicitar información, corrección
+      o eliminación de tus datos mediante el correo de contacto.
+      Para atender una solicitud podrá ser necesario verificar
+      que eres el titular de la cuenta.
+    </p>
+
+    <h2>8. Alcance de los resultados</h2>
+    <p>
+      Los resultados de Respira Fácil son orientativos y no
+      sustituyen una evaluación ni un diagnóstico profesional.
+    </p>
+
+    <h2>9. Cambios en esta política</h2>
+    <p>
+      Los cambios en el tratamiento de datos se reflejarán en
+      esta página junto con su fecha de actualización.
+    </p>
+  </main>
+  <script>
+    const correo = 'larriestradaleon19@gmail.com';
+    const enlace = document.getElementById('contacto');
+    enlace.href = 'mailto:' + correo;
+    enlace.textContent = correo;
+  </script>
+</body>
+</html>
