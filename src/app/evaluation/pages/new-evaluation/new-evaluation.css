@@ -1,386 +1,479 @@
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+.evaluation-page {
+    min-height: calc(100dvh - 72px);
+    background: #f5f7fc;
+}
+
+/* CABECERA */
 .hero {
-    height: 289px;
-    background: 
-    linear-gradient(
-        135deg,
-        #edf3ff 0%,
-        #f1f5ff 50%,
-        #e4edfc 100%
-    );
-
-    border-bottom: 1px solid #dfe5f0;
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 36px 24px 26px;
 }
 
-.hero-content {
-    max-width: 850px;
-    margin: 0 auto;
-    padding-top: 38px;
-    text-align: center;
+.hero-content h1 {
+    margin: 0;
+    color: #163449;
+    font-size: clamp(27px, 3vw, 36px);
+    line-height: 1.2;
+    letter-spacing: -1px;
 }
 
-.asma-logo {
-    width: 76px;
-    height: 76px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 2px 7px rgba(0, 0, 0, 0.04);
-}
-
-.asma-logo IMG {
-    width: 45px;
-    height: 45px;
-    object-fit: contain;
-}
-
-/* TITULO */
-
-.hero h1 {
-    margin: 19px 0 0;
-    color: #0b408e;
-    font-size: 38px;
-    line-height: 45px;
-    font-weight: 700;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.hero p {
-    margin: 2px 0 0;
-    color: #202124;
+.hero-content p {
+    margin: 10px 0 0;
+    color: #627383;
     font-size: 15px;
-    line-height: 22px;
-    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
 }
 
-/* PREGUTNAS DE LA EVALUACIÓN*/
-
+/* DISTRIBUCION */
 .evaluation-container {
     width: 100%;
-    max-width: 495px;
-    margin: -38px auto 0;
-    padding: 0 16px 63px;
-    box-sizing: border-box;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding: 0 24px 48px;
 }
 
-/* ESTILOS DE TARJETAS */
+.evaluation-form {
+    display: grid;
+    grid-template-columns: minmax(280px, 1fr) minmax(0, 2fr);
+    align-items: start;
+    gap: 20px;
+}
 
 .evaluation-card {
-    width: 100%;
-    background: #ffffff;
-    border: 1px solid #edf0f5;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-    padding: 38px;
-    margin-bottom: 19px;
-    box-sizing: border-box;
+    min-width: 0;
+    margin: 0;
+    padding: 24px;
+    border: 1px solid #e1e9ef;
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(22, 52, 73, .03);
 }
 
-/* TITULO DE PREGUTNAS */
+.body-card {
+    grid-column: 1;
+    grid-row: 1;
+}
 
+/* TITULOS */
 .question-title {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 10px;
-    margin-bottom: 15px;
-}
-
-.question-icon {
-    color: #052d72;
-    font-size: 18px;
-    flex-shrink: 0;
+    margin-bottom: 20px;
 }
 
 .question-title h2 {
     margin: 0;
-    font-size: 19px;
-    line-height: 23px;
-    font-weight: 700;
-    font-family: Arial, Helvetica, sans-serif;
+    color: #233d50;
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.5;
 }
 
-/* INPUTS IMC */
+.question-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #108ba5;
+    font-size: 23px;
+    line-height: 1;
+}
 
+/* DATOS CORPORALES */
 .imc-inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 13px;
-}
-
-.input-container {
-    position: relative;
-}
-
-.input-icon {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #4b5563;
-    font-size: 15px;
-    pointer-events: none;
-}
-
-.input-container input {
-    width: 100%;
-    height: 35px;
-    box-sizing: border-box;
-    padding: 0 16px 0 36px;
-    border: 1px solid #d7deeb;
-    background: #f0f3fb;
-    color: #222;
-    font-size: 13px;
-    outline: none;
-}
-
-.input-container input::placeholder {
-    color: #9ca3af;
-}
-
-.input-container input:focus {
-    border-color: #0b4da2;
-    box-shadow: 0 0 0 2px rgba(11, 77, 162, 0.12);
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
 }
 
 .imc-field {
     min-width: 0;
 }
 
-.imc-field .field-error {
-    margin-top: 6px;
-    line-height: 16px;
+.imc-field label {
+    display: block;
+    margin-bottom: 7px;
+    color: #486573;
+    font-size: 13px;
+    font-weight: 500;
 }
 
-/* BOTON CALCULAR */
+.input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+    height: 48px;
+    padding: 0 12px;
+    border: 1px solid #e0e7ef;
+    border-radius: 10px;
+    background: #f3f6fa;
+}
+
+.input-icon {
+    position: static;
+    transform: none;
+    flex-shrink: 0;
+    margin: 0;
+    color: #108ba5;
+    font-size: 21px;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.input-container input {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+    background: transparent;
+    color: #233d50;
+    font-size: 16px;
+}
+
+.input-container:focus-within {
+    border-color: #108ba5;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(16, 139, 165, .10);
+}
+
+.input-container input::placeholder {
+    color: #8493a1;
+}
+
+.input-container input:focus {
+    border-color: #108ba5;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(16, 139, 165, .10);
+}
 
 .calculate-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 13px;
+    margin-top: 20px;
 }
 
 .calculate-button {
-    width: 176px;
-    height: 33px;
-    border: none;
-    border-radius: 20px;
-    background: #06479c;
-    color: #ffffff;
-    font-size: 13px;
+    width: 100%;
+    min-width: 46px;
+    padding: 11px 18px;
+    border: 1px solid #bddfe6;
+    border-radius: 24px;
+    background: #e8f5f7;
+    color: #08788f;
+    font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
-    transition: background 0.2s ease;
+    transition: background 180ms ease;
 }
 
 .calculate-button:hover {
-    background: #053d86;
+    background: #d9ef33;
 }
-
-/* RESULTADO */
 
 .result {
-    height: 40px;
-    margin-top: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
-    border: 1px dashed #d3dbe9;
-    border-radius: 6px;
-    background: #f1f4fc;
-    color: #333;
-    font-size: 13px;
-}
-
-/* BOTONES SI / NO */
-
-.answer-buttons {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 19px;
-}
-
-.answer-buttons button {
-    height: 40px;
-    border: 1px solid #d8dce4;
-    border-radius: 9px;
-    background: #ffffff;
-    color: #222;
-    font-size: 13px;
-    cursor: pointer;
-    transition: 
-    background 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.answer-buttons button:hover {
-    background: #f2f5fb;
-}
-
-.answer-buttons button.selected{
-    background-color: #4387B9;
-    color: white;
-    border-color: #4387B9;
-}
-
-/* BOTN DE ENVIAR */
-
-.submit-button {
-    width: 100%;
-    height: 64px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    border: none;
+    min-height: 54px;
+    margin-top: 16px;
+    padding: 12px;
+    border: 1px dashed #bddfe6;
     border-radius: 12px;
-    background: #06479c;
-    color: #ffffff;
-    font-size: 19px;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.18);
-}
-
-.submit-button:hover {
-    background: #053d86;
-}
-
-.submit-button:active {
-    transform: translateY(1px);
-}
-
-.arrow {
-    font-size: 17px;
-}
-
-/* MENSAJES DE VALIDACIÓN */
-
-.field-error {
-    display: block;
-    margin-top: 6px;
-    color: #c62828;
-    font-size: 12px;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.evaluation-error {
-    margin-bottom: 15px;
-    padding: 12px 16px;
-    background:  #ffffff;
-    border: 1px solid #f3baba;
-    border-radius: 8px;
-    color: #b42318;
-    font-size: 13px;
-    font-family: Arial, Helvetica, sans-serif;
+    background: #f4fafb;
+    color: #334e60;
+    font-size: 15px;
+    line-height: 1.5;
     text-align: center;
 }
 
-/* BOTON DESHABILITADO */
-
-.submit-button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
+/* SINTOMAS */
+.symptoms-section {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
 }
 
-/* CARGA DE BTON */
+.symptoms-header {
+    margin-bottom: 16px;
+}
+
+.symptoms-header h2 {
+    margin: 0;
+    color: #334e60;
+    font-size: 19px;
+    line-height: 1.4;
+}
+
+.symptoms-header p {
+    margin: 5px 0 0;
+    color: #627383;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.symptoms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.question-card {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+.question-card .question-title {
+    flex: 1;
+    margin-bottom: 18px;
+}
+
+/* RESPUESTA */
+.answer-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.answer-buttons button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 46px;
+    padding: 10px;
+    border: 1px solid #dce5ed;
+    border-radius: 10px;
+    background: #fff;
+    color: #486573;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 
+        background 180ms ease
+        color 180ms ease
+        border-color 180ms ease;
+}
+
+.answer-buttons button:hover {
+    border-color: #a8d5df;
+    background: #f2f9fb;
+}
+
+.answer-buttons button.selected {
+    border-color: #108ba5;
+    background: #e8f5f7;
+    font-weight: 600;
+}
+
+.answer-buttons button.selected::before {
+    content: "✓";
+    font-size: 15px;
+}
+
+/* VALIDACIONES */
+.field-error {
+    display: block;
+    margin-top: 7px;
+    color: #b42318;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.evaluation-error {
+    grid-column: 1 / -1;
+    padding: 13px 16px;
+    border: 1px solid #f0cccc;
+    border-radius: 12px;
+    background: #fff4f4;
+    color: #a12626;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* ENVIO */
+.submit-button {
+    grid-column: 2;
+    justify-self: end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-width: 240px;
+    min-height: 48px;
+    padding: 13px 24px;
+    border: 0;
+    border-radius: 25px;
+    background: #108ba5;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(16, 139, 165, .10);
+    transition:
+        background 180ms ease
+        transform 180ms ease;
+}
+
+.submit-button:hover:not(:disabled) {
+    background: #08768e;
+    transform: translateY(-1px);
+}
+
+.submit-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.submit-button:disabled {
+    opacity: .7;
+    cursor: wait;
+}
+
+.arrow {
+    font-family: inherit;
+    font-size: 18px;
+    line-height: 1;
+}
+
+
 .loader {
+    flex-shrink: 0;
     width: 18px;
     height: 18px;
-    border: 3px solid rgba(255, 255, 255, 0.4);
-    border-top-color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, .4);
+    border-top-color: #fff;
     border-radius: 50%;
-    animation: girar 0.8s linear infinite;
+    animation: girar 800ms linear infinite;
 }
 
 @keyframes girar {
-    from {
-        transform: rotate(0deg);
-    }
-
     to {
         transform: rotate(360deg);
     }
 }
 
-/* Formulario de evaluación para celulares */
+button:focus-visible {
+    outline: 3px solid #108ba5;
+    outline-offset: 3px;
+}
+
+@media (max-width: 1000px) {
+    .evaluation-form {
+        grid-template-columns: minmax(250px, 1fr) minmax(0, 1.5fr);
+    }
+
+    .symptoms-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
 
 @media (max-width: 700px) {
     .hero {
-        height: auto;
-        padding: 28px 16px 60px;
+        padding: 24px 16px 20px;
     }
 
-    .hero-content {
-        padding-top: 0;
+    .hero-content h1 {
+        font-size: 28px;
+        letter-spacing: -.8px;
     }
 
-    .hero h1 {
-        font-size: 30px;
-        line-height: 1.2;
-    }
-
-    .hero p {
-        margin-top: 12px;
-        font-size: 16px;
-        line-height: 1.5;
+    .hero-content p {
+        margin-top: 8px;
+        font-size: 14px;
     }
 
     .evaluation-container {
-        padding-bottom: 40px;
+        padding: 0 16px 32px;
+    }
+
+    .evaluation-form {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 20px;
+    }
+
+    .body-card,
+    .symptoms-section {
+        grid-column: 1;
+        grid-row: auto;
     }
 
     .evaluation-card {
-        padding: 22px 18px;
-        margin-bottom: 16px;
+        padding: 20px;
     }
 
-    .question-title {
-        align-items: flex-start;
+    .imc-inputs {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .symptoms-grid {
+        gap: 12px;
     }
 
     .question-title h2 {
-        font-size: 18px;
-        line-height: 1.4;
+        font-size: 16px;
+    }
+
+    .question-card .question-title {
+        margin-bottom: 16px;
+    }
+
+    .answer-buttons button {
+        min-height: 48px;
+        font-size: 16px;
+    }
+
+    .submit-button {
+        grid-column: 1;
+        justify-self: stretch;
+        width: 100%;
+        min-width: 0;
+        min-height: 50px;
+    }
+
+    .evaluation-error {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 360px) {
+    .hero {
+        padding-inline: 12px;
+    }
+
+    .evaluation-container {
+        padding-inline: 12px;
+    }
+
+    .evaluation-card {
+        padding: 18px 16px;
     }
 
     .imc-inputs {
         grid-template-columns: minmax(0, 1fr);
     }
+}
 
+@media (prefers-reduced-motion: reduce) {
+    button,
     .input-container input {
-        height: 46px;
-        font-size: 16px;
+        transition: none;
     }
 
-    .answer-buttons {
-        gap: 12px;
-    }
-
-    .answer-buttons button {
-        min-height: 46px;
-        font-size: 16px;
-    }
-
-    .calculate-button {
-        min-height: 44px;
-        font-size: 15px;
-    }
-
-    .result {
-        height: auto;
-        min-height: 44px;
-        padding: 8px;
-        text-align: center;
-    }
-
-    .submit-button {
-        min-height: 56px;
-        height: auto;
-        padding: 16px 12px;
-        font-size: 17px;
+    .loader {
+        animation: none;
     }
 }

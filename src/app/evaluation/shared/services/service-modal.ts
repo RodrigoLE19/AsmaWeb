@@ -32,7 +32,11 @@ export class ServiceModal {
 
         this.dialog.open(componentRef, {
             data: config,
-            disableClose: true
+            disableClose: true,
+            width: '440px',
+            maxWidth: 'calc(100vw - 32px)',
+            maxHeight: 'calc(100dvh - 32px)',
+            panelClass: 'app-result-dialog'
         });
 
         

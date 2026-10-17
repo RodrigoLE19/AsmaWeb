@@ -1,20 +1,52 @@
 @if (mostrarNavbar()) {
-    <nav class="navbar">
+    <nav class="navbar" aria-label="Navegación principal">
         <div class="navbar-container">
             <a href="/list-evaluation" class="logo">
                 <img src="logo.png" alt="RespiraFacil">
-                <samp>Respira Facil</samp>
+
+                <span class="brand-name">
+                    Respira <span>Fácil</span>
+                </span>
             </a>
 
             <div class="nav-menu">
-                <a routerLink="list-evaluation" routerLinkActive="active" class="nav-link">Evaluaciones</a>
-                <a routerLink="new-evaluation" routerLinkActive="active" class="nav-link">Nueva Evalaucion</a>
-                <!--<a routerLinkActive="active" class="nav-link">Ayuda</a> -->
+                <a 
+                    routerLink="list-evaluation" 
+                    routerLinkActive="active" 
+                    ariaCurrentWhenActive="page"
+                    class="nav-link"
+                >
+                    <span
+                        class="material-symbols-outlined"
+                        aria-hidden="true"
+                    >
+                        history
+                    </span>
+                    Evaluaciones
+                </a>
+
+                <a 
+                    routerLink="new-evaluation" 
+                    routerLinkActive="active"
+                    ariaCurrentWhenActive="page" 
+                    class="nav-link"
+                >
+                    <span 
+                        class="material-symbols-outlined"
+                        aria-hidden="true"
+                    >
+                        add_circle
+                    </span>
+                    Nueva evalaución
+                </a>
             </div>
 
             <div class="user-section">
                 <div class="user-info">
-                    <samp class="user-name"> {{ obtenerNombreUsuario() }} </samp>
+                    <samp class="user-name"> 
+                        {{ obtenerNombreUsuario() }} 
+                    </samp>
+
                     <button
                         type="button"
                         class="logout-button"
@@ -24,7 +56,7 @@
                     </button>
                 </div>
                 
-                 <div class="user-avatar">
+                 <div class="user-avatar" aria-hidden="true">
                     {{ obtenerInicialUsuario() }}
                  </div>
             </div>

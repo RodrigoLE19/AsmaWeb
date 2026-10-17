@@ -1,269 +1,298 @@
-<nav>
-        <section class="hero">
-            <div class="hero-content">
-                <div class="asma-logo">
-                    <img src="logo.png" alt="RespiraFacil">
+<div class="evaluation-page">
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Nueva evaluación</h1>
+
+            <p>
+                {{ nombreUsuario }}, completa tus datos y responde
+                las preguntas.
+            </p>
+        </div>
+    </header>
+
+    <main class="evaluation-container">
+        <form 
+            class="evaluation-form"
+            [formGroup]="evaluationForm" 
+            (ngSubmit)="enviarEvaluacion()"
+        >
+            <section class="evaluation-card body-card">
+                <div class="question-title">
+                    <span 
+                        class="material-symbols-outlined question-icon"
+                        aria-hidden="true"
+                    >
+                        monitor_weight
+                    </span>
+                    <h2>
+                        1. Indice de masa corporal
+                    </h2>
                 </div>
 
-                <h1>
-                    Hola, {{ nombreUsuario }}
-                </h1>
+                <div class="imc-inputs">
+                    <div class="imc-field">
+                        <label for="peso">Peso (kg)</label>
+                        <div class="input-container">
+                            <span 
+                                class="material-symbols-outlined input-icon"
+                                aria-hidden="true"
+                            >
+                                weight
+                            </span>
 
-                <p>
-                    Completa el formulario para determinar el nivel de tu crisis
-                </p>
+                            <input
+                                id="peso" 
+                                type="number" 
+                                placeholder="Peso (Kg)" 
+                                formControlName="peso"
+                            >
 
-                <p>
-                    asmática
-                </p>
-
-            </div>
-        </section>
-
-        <main class="evaluation-container">
-            <form 
-                [formGroup]="evaluationForm" 
-                (ngSubmit)="enviarEvaluacion()"
-            >
-                <section class="evaluation-card">
-                    <div class="question-title">
-                        <span class="question-icon">
-                            ▣
+                        </div>
+                        @if (
+                        evaluationForm.get('peso')?.touched &&
+                        evaluationForm.get('peso')?.invalid
+                        ) {
+                        <span class="field-error">
+                            Ingresa un peso válido entre 20 y 300 Kg
                         </span>
-                        <h2>
-                            1. Indice de masa corporal
-                        </h2>
+                        }
                     </div>
 
-                    <div class="imc-inputs">
-                        <div class="imc-field">
-                            <div class="input-container">
-                                <span class="input-icon">
-                                    ⚖
-                                </span>
 
-                                <input
-                                    type="number"
-                                    placeholder="Peso (Kg)"
-                                    formControlName="peso"
+                    <div class="imc-field">
+                        <label for="altura">Altura (cm)</label>
+                        <div class="input-container">
+                            <span 
+                                class="material-symbols-outlined input-icon"
+                                aria-hidden="true"
+                            >
+                                height
+                            </span>
+
+                            
+                            <input
+                                id="altura" 
+                                type="number" 
+                                placeholder="Altura (cm)" 
+                                formControlName="altura"
+                            >
+                        </div>
+                        @if (
+                        evaluationForm.get('altura')?.touched &&
+                        evaluationForm.get('altura')?.invalid
+                        ) {
+                        <span class="field-error">
+                            Ingresa una altura válido entre 80 y 250 cm
+                        </span>
+                        }
+
+                    </div>
+
+                </div>
+
+                <div class="calculate-container">
+                    <button type="button" class="calculate-button" (click)="calcularIMC()">
+                        Calcular
+                    </button>
+                </div>
+
+                <div class="result">
+                    Resultado: {{ imc }}
+                </div>
+            </section>
+
+            <div class="symptoms-section">
+                <header class="symptoms-header">
+                    <h2>Síntomas</h2>
+                    <p>Selecciona una respuesta en cada preguntas.</p>
+                </header>
+
+                <div class="symptoms-grid">
+                        <section class="evaluation-card question-card">
+                            <div class="question-title">
+                                <samp 
+                                    class="material-symbols-outlined question-icon"
+                                    aria-hidden="true"
                                 >
-                                
+                                    air
+                                </samp>
+                                <h2>
+                                    2. ¿Tienes dificultad para respirar?
+                                </h2>
+                            </div>
+
+                            <div class="answer-buttons">
+                                <button 
+                                    type="button" 
+                                    [class.selected]="evaluationForm.get('dificultadRespirar')?.value === true"
+                                    [attr.aria-pressed]="evaluationForm.get('dificultadRespirar')?.value === true"
+                                    (click)="seleccionarRespuesta('dificultadRespirar', true)">
+                                    Sí
+                                </button>
+                                <button 
+                                    type="button" 
+                                    [class.selected]="evaluationForm.get('dificultadRespirar')?.value === false"
+                                    [attr.aria-pressed]="evaluationForm.get('dificultadRespirar')?.value === false"
+                                    (click)="seleccionarRespuesta('dificultadRespirar', false)">
+                                    No
+                                </button>
                             </div>
                             @if (
-                                    evaluationForm.get('peso')?.touched &&
-                                    evaluationForm.get('peso')?.invalid
-                                ) {
-                                    <span class="field-error">
-                                        Ingresa un peso válido entre 20 y 300 Kg 
-                                    </span>
-                                }
-                        </div>
-                        
-
-                        <div class="imc-field">
-                            <div class="input-container">
-                                <span class="input-icon">
-                                    ↕
-                                </span>
-
-                                <input
-                                    type="number"
-                                    placeholder="Altura (cm)"
-                                    formControlName="altura"
-                                >
-                            </div>
-                            @if (
-                                    evaluationForm.get('altura')?.touched &&
-                                    evaluationForm.get('altura')?.invalid
-                                ) {
-                                    <span class="field-error">
-                                        Ingresa una altura válido entre 80 y 250 cm  
-                                    </span>
-                                }
-
-                        </div>
-                        
-                    </div>
-
-                    <div class="calculate-container">
-                        <button type="button" class="calculate-button" (click)="calcularIMC()">
-                            Calcular
-                        </button>
-                    </div>
-
-                    <div class="result">
-                        Resultado: {{ imc }}
-                    </div>
-                </section>
-
-                <section class="evaluation-card question-card">
-                    <div class="question-title">
-                        <samp class="question-icon">
-                            ≋
-                        </samp>
-                        <h2>
-                            2. ¿Tienes dificultad para respirar?
-                        </h2>
-                    </div>
-
-                    <div class="answer-buttons">
-                        <button  
-                            type="button" 
-                            [class.selected]="evaluationForm.get('dificultadRespirar')?.value === true"
-                            (click)="seleccionarRespuesta('dificultadRespirar', true)">
-                            Sí
-                        </button>
-                        <button 
-                            type="button" 
-                            [class.selected]="evaluationForm.get('dificultadRespirar')?.value === false"
-                            (click)="seleccionarRespuesta('dificultadRespirar', false)">
-                            No
-                        </button>
-                    </div>
-                    @if (
                             evaluationForm.get('dificultadRespirar')?.touched &&
                             evaluationForm.get('dificultadRespirar')?.invalid
-                        ) {
+                            ) {
                             <span class="field-error">
-                                Selecciona una respuesta 
+                                Selecciona una respuesta
                             </span>
-                        }
-                </section>
+                            }
+                        </section>
 
-                <section class="evaluation-card question-card">
-                    <div class="question-title">
-                        <samp class="question-icon">
-                            ≋
-                        </samp>
-                        <h2>
-                            3. ¿Tienes tos?
-                        </h2>
-                    </div>
+                        <section class="evaluation-card question-card">
+                            <div class="question-title">
+                                <samp 
+                                    class="material-symbols-outlined question-icon"
+                                    aria-hidden="true"
+                                >
+                                    pulmonology
+                                </samp>
+                                <h2>
+                                    3. ¿Tienes tos?
+                                </h2>
+                            </div>
 
-                    <div class="answer-buttons">
-                        <button 
-                            type="button" 
-                            [class.selected]="evaluationForm.get('tos')?.value === true" 
-                            (click)="seleccionarRespuesta('tos', true)"
-                        >
-                            Sí
-                        </button>
-                        <button 
-                            type="button" 
-                            [class.selected]="evaluationForm.get('tos')?.value === false" 
-                            (click)="seleccionarRespuesta('tos', false)">
-                            No
-                        </button>
-                        
-                    </div>
-                    @if (
+                            <div class="answer-buttons">
+                                <button 
+                                    type="button" 
+                                    [class.selected]="evaluationForm.get('tos')?.value === true"
+                                    [attr.aria-pressed]="evaluationForm.get('tos')?.value === true"
+                                    (click)="seleccionarRespuesta('tos', true)">
+                                    Sí
+                                </button>
+                                <button 
+                                    type="button" 
+                                    [class.selected]="evaluationForm.get('tos')?.value === false"
+                                    [attr.aria-pressed]="evaluationForm.get('tos')?.value === false"
+                                    (click)="seleccionarRespuesta('tos', false)">
+                                    No
+                                </button>
+
+                            </div>
+                            @if (
                             evaluationForm.get('tos')?.touched &&
                             evaluationForm.get('tos')?.invalid
-                        ) {
+                            ) {
                             <span class="field-error">
-                                Selecciona una respuesta 
+                                Selecciona una respuesta
                             </span>
-                        }
-                </section>
+                            }
+                        </section>
 
-                <section class="evaluation-card question-card">
-                    <div class="question-title">
-                        <samp class="question-icon">
-                            ♧
-                        </samp>
-                        <h2>
-                            4. ¿Le silba el pecho?
-                        </h2>
-                    </div>
+                        <section class="evaluation-card question-card">
+                            <div class="question-title">
+                                <samp 
+                                    class="material-symbols-outlined question-icon"
+                                    aria-hidden="true"
+                                >
+                                    graphic_eq
+                                </samp>
+                                <h2>
+                                    4. ¿Le silba el pecho?
+                                </h2>
+                            </div>
 
-                    <div class="answer-buttons">
-                        <button 
-                            type="button" 
-                            [class.selected]="evaluationForm.get('silbidoPecho')?.value === true"
-                            (click)="seleccionarRespuesta('silbidoPecho', true)">
-                            Sí
-                        </button>
-                        <button 
-                            type="button" 
-                            [class.selected]="evaluationForm.get('silbidoPecho')?.value === false"
-                            (click)="seleccionarRespuesta('silbidoPecho', false)">
-                            No
-                        </button>
-                        
-                    </div>
-                    @if (
+                            <div class="answer-buttons">
+                                <button 
+                                    type="button" 
+                                    [class.selected]="evaluationForm.get('silbidoPecho')?.value === true"
+                                    [attr.aria-pressed]="evaluationForm.get('silbidoPecho')?.value === true"
+                                    (click)="seleccionarRespuesta('silbidoPecho', true)">
+                                    Sí
+                                </button>
+                                <button 
+                                    type="button" 
+                                    [class.selected]="evaluationForm.get('silbidoPecho')?.value === false"
+                                    [attr.aria-pressed]="evaluationForm.get('silbidoPecho')?.value === false"
+                                    (click)="seleccionarRespuesta('silbidoPecho', false)">
+                                    No
+                                </button>
+
+                            </div>
+                            @if (
                             evaluationForm.get('silbidoPecho')?.touched &&
                             evaluationForm.get('silbidoPecho')?.invalid
-                        ) {
+                            ) {
                             <span class="field-error">
-                                Selecciona una respuesta 
+                                Selecciona una respuesta
                             </span>
-                        }
-                </section>
+                            }
+                        </section>
 
-                <section class="evaluation-card question-card">
-                    <div class="question-title">
-                        <samp class="question-icon">
-                            ♡
-                        </samp>
-                        <h2>
-                            5. ¿Siente opresion en el pecho?
-                        </h2>
-                    </div>
+                        <section class="evaluation-card question-card">
+                            <div class="question-title">
+                                <samp 
+                                    class="material-symbols-outlined question-icon"
+                                    aria-hidden="true"
+                                >
+                                    favorite
+                                </samp>
+                                <h2>
+                                    5. ¿Siente opresion en el pecho?
+                                </h2>
+                            </div>
 
-                    <div class="answer-buttons">
-                        <button 
-                            type="button" 
-                            [class.selected]="evaluationForm.get('opresionPecho')?.value === true"
-                            (click)="seleccionarRespuesta('opresionPecho', true)">
-                            Sí
-                        </button>
-                        <button 
-                            type="button" 
-                            [class.selected]="evaluationForm.get('opresionPecho')?.value === false"
-                            (click)="seleccionarRespuesta('opresionPecho', false)">
-                            No
-                        </button>
-                        
-                    </div>
-                    @if (
+                            <div class="answer-buttons">
+                                <button 
+                                    type="button" 
+                                    [class.selected]="evaluationForm.get('opresionPecho')?.value === true"
+                                    [attr.aria-pressed]="evaluationForm.get('opresionPecho')?.value === true"
+                                    (click)="seleccionarRespuesta('opresionPecho', true)">
+                                    Sí
+                                </button>
+                                <button 
+                                    type="button" 
+                                    [class.selected]="evaluationForm.get('opresionPecho')?.value === false"
+                                    [attr.aria-pressed]="evaluationForm.get('opresionPecho')?.value === false"
+                                    (click)="seleccionarRespuesta('opresionPecho', false)">
+                                    No
+                                </button>
+
+                            </div>
+                            @if (
                             evaluationForm.get('opresionPecho')?.touched &&
                             evaluationForm.get('opresionPecho')?.invalid
-                        ) {
+                            ) {
                             <span class="field-error">
-                                Selecciona una respuesta 
+                                Selecciona una respuesta
                             </span>
-                        }
-                </section>
+                            }
+                        </section>
+                </div>
+            </div>
 
-                @if (mensajeError()) {
-                    <div class="evaluation-error">
-                        {{ mensajeError() }}
-                    </div>
-                }
+            @if (mensajeError()) {
+            <div class="evaluation-error">
+                {{ mensajeError() }}
+            </div>
+            }
 
-                <button 
-                    type="submit"
-                    class="submit-button"
-                    [disabled]="isLoading()"
-                >
+            <button type="submit" class="submit-button" [disabled]="isLoading()">
                 @if (isLoading()) {
-                    <span class="loader"></span>
-                    <span>
-                        Procesando evaluación... 
-                    </span>
+                <span class="loader"></span>
+                <span>
+                    Procesando evaluación...
+                </span>
                 } @else {
-                    <span>
-                        Enviar Evaluación
-                    </span>
+                <span>
+                    Enviar Evaluación
+                </span>
 
-                    <samp class="arrow">
-                        ▷
-                    </samp>
+                <samp class="arrow">
+                    ▷
+                </samp>
 
                 }
-                    
-                </button>
-            </form>
-        </main>
-    </nav>
+
+            </button>
+        </form>
+    </main>
+</div>

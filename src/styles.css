@@ -3,4 +3,8 @@
     padding: 0;
     box-sizing: border-box;
 }
-
+.app-result-dialog .mat-mdc-dialog-surface {
+    padding: 0;
+    border-radius: 24px;
+    background: #fff;
+}

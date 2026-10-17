@@ -1,27 +1,43 @@
-<div class="modal_risk">
-    <div 
-        [class.low_risk]="matDialog.data.AsthmaDiagnosis == '[0]'"
-        [class.high_risk]="matDialog.data.AsthmaDiagnosis == '[1]'"
-    >
-        RESULTADO
-    </div>
+<div
+    class="modal-risk"
+    [class.is-low]="matDialog.data.AsthmaDiagnosis === '[0]'"
+    [class.is-high]="matDialog.data.AsthmaDiagnosis !== '[0]'"
+>
+    <div class="result-header">
+        <span class="result-label">
+            Resultado de tu evaluación
+        </span>
 
-    <div class="modal_risk_body">
-        <h2 class="risk_title">
+        <div class="result-icon">
+            <span
+                class="material-symbols-outlined"
+                aria-hidden="true"
+            >
+                pulmonology
+            </span>
+        </div>
+
+        <h2 class="risk-title">
             {{ getRiskTitle() }}
         </h2>
-    
-        <p class="body__message">
+    </div>
+
+    <div class="result-body">
+        <p class="result-message">
             {{ getMessageRisk() }}
         </p>
 
         <button
-            routerLink="/list-evaluation" 
-            [class.low_button_color]="matDialog.data.AsthmaDiagnosis == '[0]'"
-            [class.high_button_color]="matDialog.data.AsthmaDiagnosis == '[1]'"
-            (click)="modalService.closeModal(null, true)"
+            type="button"
+            class="result-button"
+            (click)="modalService.closeModal('/list-evaluation')"
         >
             Aceptar
+
+            <span
+                class="material-symbols-outlined"
+                aria-hidden="true"
+            >arrow_forward</span>
         </button>
     </div>
 </div>

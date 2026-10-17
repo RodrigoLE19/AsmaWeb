@@ -15,7 +15,7 @@ export class App {
   router = inject(Router);
 
   mostrarNavbar(): boolean {
-    return ! (
+    return this.router.navigated && !(
       this.router.url.includes('/login') || 
       this.router.url.includes('/register') ||
       this.router.url.includes('/forgot-password') ||

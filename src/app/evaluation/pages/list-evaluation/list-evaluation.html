@@ -2,35 +2,41 @@
   <div class="evaluaciones-container">
     <section class="page-intro">
       <div class="intro-content">
-        <div class="section-label">
-          <span></span>
-          <p>HISTORIAL CLÍNICO</p>
-        </div>
-
-        <h1>Evaluaciones Respiratorias</h1>
-
+        <h1>Mis evaluaciones</h1>
+        
         <p class="intro-description">
-          Revisa el historial de evaluaciones de riesgo de asma
-          para monitorear la evolución clínica.
+          Consulta tus resultados y revisa tus evaluaciones anteriores. 
         </p>
       </div>
 
       <button
+        type="button"
         class="new-evaluation-button"
         routerLink="/new-evaluation"
       >
-        <span class="plus-icon">+</span>
-        <span>Nueva Evaluación</span>
+        <span 
+          class="material-symbols-outlined" 
+          aria-hidden="true"
+        >
+          add
+        </span>
+
+        <span>Nueva evaluación</span>
       </button>
     </section>
 
     <section class="records-section">
       <div class="records-header">
-        <h2>Registros Recientes</h2>
+        <h2>Historial de resultados</h2>
 
         <div class="search-container">
           <div class="search-box">
-            <span class="search-icon" aria-hidden="true">⌕</span>
+            <span 
+              class="material-symbols-outlined search-icon" 
+              aria-hidden="true"
+            >
+              search
+            </span>
 
             <input
               type="text"
