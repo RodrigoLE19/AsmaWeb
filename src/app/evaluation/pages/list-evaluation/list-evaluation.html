@@ -53,6 +53,12 @@
 
       <div class="table-container">
 
+        @if (errorCarga()) {
+          <p role="alert" class="error-carga">
+            {{ errorCarga() }}
+          </p>
+        }
+
         <table class="records-table">
           <thead>
             <tr>
@@ -70,6 +76,8 @@
                   Cargando evaluaciones...
                 </td>
               </tr>
+            } @else if (errorCarga()) {
+
             } @else if (evaluaciones().length === 0) {
               <tr>
                 <td colspan="4" class="empty-cell">
@@ -127,7 +135,10 @@
             <p class="card-state" role="status">
               Cargando evaluaciones...
             </p>
-          } @else if (evaluaciones().length === 0) {
+          } @else if (errorCarga()) {
+
+          } 
+          @else if (evaluaciones().length === 0) {
             <p class="card-state">
               No tienes evaluaciones registradas.
             </p>
@@ -177,41 +188,45 @@
           }
         </div>
 
-        <div class="pagination">
-          <div class="pagination-info">
-            Mostrando
-            <strong>{{ evaluacionesPaginadas().length }}</strong>
-            de
-            <strong>{{ evaluacionesFiltradas().length }}</strong>
-            evaluaciones
+        @if (!errorCarga() && !isLoading()) {
+          <div class="pagination">
+            <div class="pagination-info">
+              Mostrando
+              <strong>{{ evaluacionesPaginadas().length }}</strong>
+              de
+              <strong>{{ evaluacionesFiltradas().length }}</strong>
+              evaluaciones
+            </div>
+
+            <div class="pagination-controls">
+              <button
+                type="button"
+                class="pagination-arrow"
+                aria-label="Página anterior"
+                (click)="paginaAnterior()"
+                [disabled]="paginaActual() <= 1"
+              >
+                ‹
+              </button>
+
+              <span class="current-page">
+                {{ paginaActual() }}
+              </span>
+
+              <button
+                type="button"
+                class="pagination-arrow"
+                aria-label="Página siguiente"
+                (click)="paginaSiguiente()"
+                [disabled]="paginaActual() >= totalPaginas()"
+              >
+                ›
+              </button>
+            </div>
           </div>
 
-          <div class="pagination-controls">
-            <button
-              type="button"
-              class="pagination-arrow"
-              aria-label="Página anterior"
-              (click)="paginaAnterior()"
-              [disabled]="paginaActual() <= 1"
-            >
-              ‹
-            </button>
-
-            <span class="current-page">
-              {{ paginaActual() }}
-            </span>
-
-            <button
-              type="button"
-              class="pagination-arrow"
-              aria-label="Página siguiente"
-              (click)="paginaSiguiente()"
-              [disabled]="paginaActual() >= totalPaginas()"
-            >
-              ›
-            </button>
-          </div>
-        </div>
+        }
+        
       </div>
     </section>
   </div>

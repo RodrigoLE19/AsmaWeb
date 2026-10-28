@@ -99,10 +99,7 @@ export class LoginPage {
         })
       );
 
-      localStorage.setItem(
-        'usuario',
-        JSON.stringify(respuesta)
-      );
+      this.authService.guardarSesion(respuesta);
 
       Swal.fire({
         icon: 'success',

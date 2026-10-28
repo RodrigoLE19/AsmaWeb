@@ -2,6 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { EvaluationService } from '../../services/evaluation-service';
 import { EvaluationDTO } from '../../interfaces/EvaluationDTO';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../../auth/services/auth-service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-list-evaluation',
@@ -12,6 +14,9 @@ import { RouterLink } from '@angular/router';
 export class ListEvaluation {
 
   private evaluationService = inject(EvaluationService);
+  private authService = inject(AuthService);
+
+  errorCarga = signal<string>('');
 
   evaluaciones = signal<EvaluationDTO[]>([]);
 
@@ -29,25 +34,26 @@ export class ListEvaluation {
 
   obtenerEvaluaciones(): void {
     this.isLoading.set(true);
+    this.errorCarga.set('');
 
-    const usuarioGuardado = localStorage.getItem('usuario');
-
-    if (!usuarioGuardado) {
-      this.isLoading.set(false);
-      return;
-    }
-
-    const usuario = JSON.parse(usuarioGuardado);
-    const idUsuario = usuario.idUsuario;
-
-    this.evaluationService.obtenerEvaluaciones(idUsuario).subscribe({
-      next: (respuesta) => {
+    this.authService.obtenerPerfil().pipe(
+      switchMap(perfil =>
+        this.evaluationService.obtenerEvaluaciones(perfil.idUsuario)
+      )
+    ).subscribe({
+      next: respuesta => {
         this.evaluaciones.set(respuesta);
         this.isLoading.set(false);
       },
 
-      error: () => {
+      error: error => {
         this.isLoading.set(false);
+
+        if (error.status !== 401) {
+          this.errorCarga.set(
+            'No se pudo cargar el historial. Inténtalo nuevamente.'
+          );
+        }
       }
     });
   }

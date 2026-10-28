@@ -3,4 +3,5 @@ export interface UsuarioResponse {
   nombre: string;
   apellido: string;
   email: string;
+  token: string;
 }

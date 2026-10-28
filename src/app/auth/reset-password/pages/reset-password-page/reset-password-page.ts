@@ -19,13 +19,15 @@ export class ResetPasswordPage {
   isLoading = signal(false);
   mensajeError = signal('');
   mensajeExito = signal('');
+  mostrarNuevaContrasena = signal(false);
+  mostrarConfirmacion = signal(false);
 
   token: string = '';
 
   resetForm = this.fb.group({
     nuevaContrasena: ['', [
       Validators.required,
-      Validators.minLength(6)
+      Validators.minLength(8)
     ]],
     confirmarContrasena: ['', [
       Validators.required
@@ -37,40 +39,56 @@ export class ResetPasswordPage {
   }
 
   restablecerContrasena(): void {
-    if (this.resetForm.invalid) {
-      this.resetForm.markAllAsTouched();
+    if (this.isLoading() || this.mensajeExito()) {
       return;
-      
     }
 
-    const nuevaContrasena = this.resetForm.value.nuevaContrasena!;
-    const confirmarContrasena = this.resetForm.value.confirmarContrasena!;
+    this.mensajeError.set('');
+    this.resetForm.markAllAsTouched();
+
+    if (this.resetForm.invalid) {
+      return;
+    }
+
+    const {
+      nuevaContrasena,
+      confirmarContrasena
+    } = this.resetForm.getRawValue();
+
+    if (nuevaContrasena !== confirmarContrasena) {
+      this.mensajeError.set('Las contraseñas no coinciden.');
+      return;
+    }
 
     if (!this.token) {
-      this.mensajeError.set('EL enlace de recuperacion no es válido');
+      this.mensajeError.set('El enlace de recuperación no es válido.');
       return;
-      
     }
 
     this.isLoading.set(true);
-    this.mensajeError.set('');
-    this.mensajeExito.set('');
 
     this.authService
-      .restablecerContrasena(this.token, nuevaContrasena)
+      .restablecerContrasena(this.token, nuevaContrasena!)
       .subscribe({
         next: () => {
-          this.mensajeExito.set('Tu contraseña fue restablecida correctamente');
+          this.mensajeExito.set(
+            'Contraseña actualizada. Te llevaremos al inicio de sesión.'
+          );
+
           this.isLoading.set(false);
 
           setTimeout(() => {
-            this.router.navigate(['/login']);
+            void this.router.navigate(['/login']);
           }, 2000);
         },
 
         error: (error) => {
-          console.error(error);
-          this.mensajeError.set('El enlace es inválido o ha expirado');
+          this.mensajeError.set(
+            [400, 404, 410].includes(error.status)
+              ? 'El enlace no es válido, ha expirado o los datos no son válidos.'
+              : 'No se pudo actualizar la contraseña. Inténtalo nuevamente.'
+          );
+
           this.isLoading.set(false);
         }
       });

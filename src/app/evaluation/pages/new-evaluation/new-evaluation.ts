@@ -5,6 +5,7 @@ import { firstValueFrom } from 'rxjs';
 import { ServiceModal } from '../../shared/services/service-modal';
 import { ModalRiskComponent } from '../../components/modal-risk-component/modal-risk-component';
 import { ModalEvaluationInfo } from '../../components/modal-evaluation-info/modal-evaluation-info';
+import { AuthService } from '../../../auth/services/auth-service';
 
 @Component({
   selector: 'app-new-evaluation',
@@ -25,7 +26,8 @@ export class NewEvaluation {
   constructor(
     private fb: FormBuilder,  
     public evaluacionService: EvaluationService, 
-    public serviceModal: ServiceModal) {
+    public serviceModal: ServiceModal,
+    private authService: AuthService) {
     this.evaluationForm = this.fb.group({
       peso: [
         '',
@@ -52,12 +54,16 @@ export class NewEvaluation {
   }
 
   ngOnInit(): void {
-    const usuarioGuardado = localStorage.getItem('usuario');
+    this.nombreUsuario = this.authService.perfil()?.nombre ?? '';
 
-    if (usuarioGuardado) {
-      const usuario = JSON.parse(usuarioGuardado);
-      this.nombreUsuario = usuario.nombre;
-    }
+    this.authService.obtenerPerfil().subscribe({
+      next: perfil => {
+        this.nombreUsuario = perfil.nombre;
+      },
+      error: () => {
+        
+      }
+    });
     this.serviceModal.openModal(ModalEvaluationInfo);
   }
 
@@ -93,75 +99,57 @@ export class NewEvaluation {
 
   async enviarEvaluacion() {
 
-    if (this.isLoading()) {
-      return;
-    }
-
-    this.mensajeError.set('');
-
-    if(this.evaluationForm.invalid) {
-      this.evaluationForm.markAllAsTouched();
-      this.mensajeError.set('Complete correctamente todas las preguntas');
-      return;
-    }
-
-    if(this.imc === null) {
-      this.mensajeError.set('Debes calcular el IMC antes de enviar la evaluación');
-      return;
-    }
-
-    this.isLoading.set(true);
-
-    const usuarioGuardado = localStorage.getItem('usuario');
-
-      if (!usuarioGuardado) {
-        console.error('No se encontro una sesión activa. Inicia sesión nuevamente. ');
-        this.isLoading.set(false);
-        return; 
+      if (this.isLoading()) {
+        return;
       }
 
-      const usuario = JSON.parse(usuarioGuardado);
+      this.mensajeError.set('');
 
-    const datosEvaluacion = {
-      questionIMC: this.imc,
-      questionWheezing: this.evaluationForm.value.silbidoPecho,
-      questionShortnessOfBreath: this.evaluationForm.value.dificultadRespirar,
-      questionChestTightness: this.evaluationForm.value.opresionPecho,
-      questionCoughing: this.evaluationForm.value.tos
-    };
-    try{
-      
-      const respuesta = await firstValueFrom(
-        this.evaluacionService.evaluar(datosEvaluacion)
-      ); 
+      if (this.evaluationForm.invalid) {
+        this.evaluationForm.markAllAsTouched();
+        this.mensajeError.set(
+          'Completa correctamente todas las preguntas'
+        );
+        return;
+      }
 
-      const resultado =
-        respuesta.AsthmaDiagnosis === '[0]'
-          ? 'Baja Probabilidad'
-          : 'Alta Probabilidad';
+      if (this.imc === null) {
+        this.mensajeError.set(
+          'Debes calcular el IMC antes de enviar la evaluación'
+        );
+        return;
+      }
 
-      const ahora = new Date();
+      const valores = this.evaluationForm.getRawValue();
 
-      const evaluacionGuardar = {
-        fecha: ahora.toISOString().split('T')[0],
-        hora: ahora.toTimeString().slice(0, 5),
-        tiempoPrediccion: `${respuesta.prediction_time_ms} ms`,
-        resultado,
-        usuario: usuario.idUsuario
+      const datosEvaluacion = {
+        peso: Number(valores.peso),
+        altura: Number(valores.altura),
+        dificultadRespirar: valores.dificultadRespirar as boolean,
+        tos: valores.tos as boolean,
+        silbidoPecho: valores.silbidoPecho as boolean,
+        opresionPecho: valores.opresionPecho as boolean
       };
 
-      await firstValueFrom(
-        this.evaluacionService.guardarEvaluacion(evaluacionGuardar)
-      );
+      this.isLoading.set(true);
 
-      this.serviceModal.openModal(ModalRiskComponent, respuesta)
+      try {
+        const respuesta = await firstValueFrom(
+          this.evaluacionService.evaluar(datosEvaluacion)
+        );
 
-    } catch (error)
-     {
-      console.error('Error al procesar la evaluación', error);
-      this.mensajeError.set('No se pudo procesar la evaluación. Inténtalo nuevamente');
-    } finally {
-      this.isLoading.set(false);
-    }    
+        this.serviceModal.openModal(
+          ModalRiskComponent,
+          respuesta
+        );
+      } catch (error) {
+        console.error('Error al procesar la evaluación', error);
+
+        this.mensajeError.set(
+          'No se pudo procesar la evaluación. Inténtalo nuevamente'
+        );
+      } finally {
+        this.isLoading.set(false);
+      }
   }
 }
